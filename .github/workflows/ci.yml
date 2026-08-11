@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  ci:
+    name: ci
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (with submodules)
+        uses: actions/checkout@v5
+        with:
+          submodules: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      - name: Build engine and contracts submodules
+        run: npm run setup
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify v2/ is not stale
+        run: |
+          npm run export:content
+          git diff --exit-code -- v2
+
+      - name: Validate published content against the content contract
+        run: npm run validate:content

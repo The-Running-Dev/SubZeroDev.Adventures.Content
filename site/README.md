@@ -1,3 +1,23 @@
+# SubZeroDev Game Engine Landing Page — parked, not building
+
+**This is a verbatim copy of `SubZeroDev.GameEngine`'s own `site/` directory, dropped into
+this repo as a starting point.** It is not adapted for `SubZeroDev.Adventures.Content`: its
+`package.json` is still named `subzerodev-game-engine-landing`, its metadata still describes
+the Game Engine's own landing page (`game-engine.subzerodev.com`), and it depends on
+`@the-running-dev/game-engine": "file:../src/engine"`, a path this repo does not have — so it
+does not build here as-is.
+
+**It is being kept, not deleted**, as the starting basis for a future community-facing UI for
+this repo — a real rework, not a wiring task. Until that happens it is excluded from this
+repo's CI and from what gets published to Pages (`v2/` — see the repo root `README.md` for
+what this repo actually publishes today: campaign JSON, projected against
+`SubZeroDev.ServiceContract`'s content-document contract).
+
+The rest of this file is the original README from the engine repo, kept for reference against
+that future rework.
+
+---
+
 # SubZeroDev Game Engine Landing Page
 
 The standalone React landing page. It is intentionally separate from the Docusaurus

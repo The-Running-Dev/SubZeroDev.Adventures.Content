@@ -1,0 +1,6 @@
+[submodule "engine"]
+	path = engine
+	url = https://github.com/The-Running-Dev/SubZeroDev.GameEngine.git
+[submodule "contracts"]
+	path = contracts
+	url = https://github.com/The-Running-Dev/SubZeroDev.ServiceContract.git

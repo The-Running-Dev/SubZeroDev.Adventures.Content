@@ -1,0 +1,19 @@
+{
+  "name": "subzerodev-adventures-content",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Published campaign JSON for SubZeroDev.Adventures, governed by SubZeroDev.ServiceContract's content-document contract.",
+  "scripts": {
+    "setup": "npm --prefix engine/src/engine ci && npm --prefix engine/src/engine run build && npm --prefix contracts ci && npm --prefix contracts run build",
+    "export:content": "node scripts/export-content.mjs",
+    "validate:content": "node scripts/validate-content.mjs",
+    "check": "npm run export:content && git diff --exit-code -- v2 && npm run validate:content"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1"
+  }
+}
