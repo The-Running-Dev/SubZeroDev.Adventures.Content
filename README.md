@@ -7,8 +7,8 @@ Today, Adventures gets campaign content by submoduling the entire
 [`SubZeroDev.GameEngine`](https://github.com/The-Running-Dev/SubZeroDev.GameEngine) repo and
 running its exporter at build time — content only ships when the player repo ships. This repo
 exists to break that coupling: it submodules the engine itself, runs the same exporter, and
-**publishes** the result at a version-pathed URL, so Adventures can fetch fresh content without
-a redeploy.
+**publishes** the result at this repo's Pages root, so Adventures can fetch fresh content
+without a redeploy.
 
 ## Status
 
@@ -30,16 +30,15 @@ In progress. Concretely real:
   (rebase-merged) for the graduation, and `SubZeroDev.ServiceContract`'s `main` for the content
   contract (this org's branch protection allows a direct push there; GameEngine's does not,
   hence the PR).
+- Published via an `actions/deploy-pages` workflow that copies `v2/`'s *contents* to the Pages
+  root (so e.g. `v2/manifest.json` is served at `/manifest.json`, not `/v2/manifest.json`),
+  mirroring `SubZeroDev.Adventures`'s own `.github/workflows/deploy.yml`.
 
 Not yet real, so not claimed as working:
 
-- **This repo has no engine submodule, no CI, and no publish workflow yet.** Nothing is
-  actually served at a version-pathed URL. Do not point Adventures' fetch at this repo until
-  this section says otherwise.
-- **GitHub Pages here is still on the legacy `main:/` build**, which is how `site/`'s stray
-  contents ended up accidentally publicly served at an undeclared URL. It needs to move to a
-  `actions/deploy-pages` workflow serving a `v2/` publish tree, mirroring
-  `SubZeroDev.Adventures`'s own `.github/workflows/deploy.yml`.
+- **Nothing outside `v2/`'s exported files is served at the Pages root** — no landing page, no
+  human-readable index. Fetching the manifest and campaign JSON directly is the supported path;
+  browsing the root in a browser will 404.
 
 ## `site/`
 
