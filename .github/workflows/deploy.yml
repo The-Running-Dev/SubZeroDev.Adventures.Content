@@ -55,6 +55,7 @@ jobs:
         run: |
           mkdir -p dist
           cp -r v2/. dist/
+          node scripts/build-index.mjs
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
