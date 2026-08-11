@@ -46,15 +46,15 @@ jobs:
       - name: Validate published content against the content contract
         run: npm run validate:content
 
-      # Pages serves exactly this directory's contents at the repo's Pages root -- v2/ alone,
-      # not the whole checkout. Before this workflow, Pages was on the legacy main:/ build,
-      # which is how site/'s stray contents ended up accidentally publicly served (README.md's
-      # own Status section). A scoped artifact is what fixes that, not a .gitignore or a
-      # server-side rule.
-      - name: Prepare the Pages artifact (v2/ only)
+      # Pages serves exactly this directory's contents at the repo's Pages root -- v2/'s
+      # files land AT that root (no /v2/ path segment), not the whole checkout. Before this
+      # workflow, Pages was on the legacy main:/ build, which is how site/'s stray contents
+      # ended up accidentally publicly served (README.md's own Status section). A scoped
+      # artifact is what fixes that, not a .gitignore or a server-side rule.
+      - name: Prepare the Pages artifact (v2/ contents, published at root)
         run: |
-          mkdir -p dist/v2
-          cp -r v2/. dist/v2/
+          mkdir -p dist
+          cp -r v2/. dist/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
