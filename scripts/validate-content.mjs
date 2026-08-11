@@ -1,5 +1,6 @@
 /**
- * Validates v2/ against SubZeroDev.ServiceContract's content-document contract.
+ * Validates the published campaign JSON at this repo's root against
+ * SubZeroDev.ServiceContract's content-document contract.
  *
  * The contract has never been published to a real npm registry (SubZeroDev.ServiceContract's
  * own README: "No real npm publish" -- the @subzerodev npm org reservation is still open),
@@ -21,7 +22,7 @@ import Ajv2020 from "ajv/dist/2020.js";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 const contractPath = join(repoRoot, "contracts", "dist", "content-contract.json");
-const publishDir = join(repoRoot, "v2");
+const publishDir = repoRoot;
 
 const contract = JSON.parse(await readFile(contractPath, "utf8"));
 if (contract.contractKind !== "content-document") {

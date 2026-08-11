@@ -38,24 +38,22 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Verify v2/ is not stale
+      - name: Verify the published content is not stale
         run: |
           npm run export:content
-          git diff --exit-code -- v2
+          npm run check:clean
 
       - name: Validate published content against the content contract
         run: npm run validate:content
 
-      # Pages serves exactly this directory's contents at the repo's Pages root -- v2/'s
-      # files land AT that root (no /v2/ path segment), not the whole checkout. Before this
-      # workflow, Pages was on the legacy main:/ build, which is how site/'s stray contents
-      # ended up accidentally publicly served (README.md's own Status section). A scoped
-      # artifact is what fixes that, not a .gitignore or a server-side rule.
-      - name: Prepare the Pages artifact (v2/ contents, published at root)
-        run: |
-          mkdir -p dist
-          cp -r v2/. dist/
-          node scripts/build-index.mjs
+      # Pages serves exactly dist/'s contents at the repo's Pages root. build-site.mjs
+      # assembles it from the manifest's own file list -- never by copying the repository
+      # root, which also holds scripts/, site/, and the submodules. Before this workflow,
+      # Pages was on the legacy main:/ build, which is how site/'s stray contents ended up
+      # accidentally publicly served (README.md's own Status section); building from an
+      # explicit list is what keeps that from regressing.
+      - name: Prepare the Pages artifact
+        run: npm run build:site
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
