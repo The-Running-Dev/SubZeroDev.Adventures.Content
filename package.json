@@ -8,7 +8,9 @@
     "setup": "npm --prefix engine/src/engine ci && npm --prefix engine/src/engine run build && npm --prefix contracts ci && npm --prefix contracts run build",
     "export:content": "node scripts/export-content.mjs",
     "validate:content": "node scripts/validate-content.mjs",
-    "check": "npm run export:content && git diff --exit-code -- v2 && npm run validate:content"
+    "build:site": "node scripts/build-site.mjs",
+    "check": "npm run export:content && npm run check:clean && npm run validate:content",
+    "check:clean": "git diff --exit-code -- \":(glob)*.json\" \":(exclude)package.json\" \":(exclude)package-lock.json\""
   },
   "engines": {
     "node": ">=24"

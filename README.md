@@ -30,15 +30,15 @@ In progress. Concretely real:
   (rebase-merged) for the graduation, and `SubZeroDev.ServiceContract`'s `main` for the content
   contract (this org's branch protection allows a direct push there; GameEngine's does not,
   hence the PR).
-- Published via an `actions/deploy-pages` workflow that copies `v2/`'s *contents* to the Pages
-  root (so e.g. `v2/manifest.json` is served at `/manifest.json`, not `/v2/manifest.json`),
-  mirroring `SubZeroDev.Adventures`'s own `.github/workflows/deploy.yml`.
-
-Not yet real, so not claimed as working:
-
-- **Nothing outside `v2/`'s exported files is served at the Pages root** — no landing page, no
-  human-readable index. Fetching the manifest and campaign JSON directly is the supported path;
-  browsing the root in a browser will 404.
+- Published via an `actions/deploy-pages` workflow, mirroring `SubZeroDev.Adventures`'s own
+  `.github/workflows/deploy.yml`. The campaign JSON lives at this repo's root and is served at
+  the Pages root — `manifest.json` here is `/manifest.json` there, no intermediate path
+  segment. `scripts/build-site.mjs` assembles the deployed artifact from the manifest's own
+  file list, so nothing outside the published content (`scripts/`, `site/`, the submodules) can
+  be served by accident.
+- A generated `index.html` lists the published campaigns at the Pages root, so browsing it in a
+  browser renders instead of 404ing. It is a content index, not a playable site — fetching the
+  manifest and campaign JSON directly remains the supported path.
 
 ## `site/`
 
