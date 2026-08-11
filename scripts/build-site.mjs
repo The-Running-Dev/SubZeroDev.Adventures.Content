@@ -1,18 +1,19 @@
 /**
- * Builds dist/index.html for GitHub Pages from v2/manifest.json + each campaign's catalog.
+ * Assembles dist/ -- what GitHub Pages serves at this repo's root -- from the published
+ * manifest, plus a generated index.html so the root renders instead of 404ing.
  *
- * v2/ is JSON only (regenerated wholesale by export-content.mjs, which would delete a
- * committed index.html on every run) so this reads v2/ after export but writes straight to
- * dist/, alongside the copied v2/ contents, in the deploy workflow's "Prepare the Pages
- * artifact" step.
+ * The artifact is built from the manifest's own file list rather than by copying the
+ * repository root, which now holds the content *and* everything else (scripts/, site/, the
+ * submodules, package.json). Copying the root wholesale is exactly the leak that scoping the
+ * artifact was meant to fix; an explicit list cannot regress into it.
  */
 
-import { readFile, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { join } from "node:path";
+import { MANIFEST_FILE, publishedFiles } from "./published.mjs";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
-const v2Dir = join(repoRoot, "v2");
 const distDir = join(repoRoot, "dist");
 
 function escapeHtml(value) {
@@ -23,11 +24,18 @@ function escapeHtml(value) {
     .replaceAll('"', "&quot;");
 }
 
-const manifest = JSON.parse(await readFile(join(v2Dir, "manifest.json"), "utf8"));
+await rm(distDir, { recursive: true, force: true });
+await mkdir(distDir, { recursive: true });
+
+for (const file of await publishedFiles(repoRoot)) {
+  await copyFile(join(repoRoot, file), join(distDir, file));
+}
+
+const manifest = JSON.parse(await readFile(join(repoRoot, MANIFEST_FILE), "utf8"));
 
 const cards = await Promise.all(
   manifest.campaigns.map(async (entry) => {
-    const campaign = JSON.parse(await readFile(join(v2Dir, entry.file), "utf8"));
+    const campaign = JSON.parse(await readFile(join(repoRoot, entry.file), "utf8"));
     const { title, description, duration, contentNotice } = campaign.catalog;
     return `
     <li class="campaign">
@@ -73,4 +81,4 @@ const html = `<!doctype html>
 `;
 
 await writeFile(join(distDir, "index.html"), html);
-console.log(`Wrote dist/index.html (${manifest.campaigns.length} campaigns)`);
+console.log(`Built dist/ -- ${manifest.campaigns.length} campaigns + manifest.json + index.html`);
