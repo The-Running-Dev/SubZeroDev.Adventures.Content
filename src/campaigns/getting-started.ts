@@ -35,7 +35,8 @@ export const gettingStartedCatalog: PortableCatalog = {
     "An interactive orientation that explains Adventures by making you play it. Skipping is a valid choice. So is not skipping.",
   duration: "~4 min (or ~4 seconds if you skip)",
   contentNotice: "Self-aware nonsense. Occasional profanity. No real danger.",
-  featured: true,
+  featured: false,
+  hidden: true,
 };
 
 const { text, put, opt, nodes, pick, say, visited } =
