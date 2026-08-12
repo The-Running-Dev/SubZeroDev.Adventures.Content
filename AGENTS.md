@@ -6,7 +6,7 @@ runtime. It exists to break Adventures' dependency on submoduling the entire eng
 content — this repo does that submoduling instead, runs the engine's exporter, and publishes
 the result at its Pages root so Adventures can fetch fresh content without a redeploy.
 
-- **`engine/`** — a submodule of [`SubZeroDev.GameEngine`](https://github.com/The-Running-Dev/SubZeroDev.GameEngine), the source of the exporter and the campaign content this repo publishes.
+- **`engine/`** — a submodule of [`SubZeroDev.GameEngine`](https://github.com/The-Running-Dev/SubZeroDev.GameEngine), the source of the `/authoring` toolkit this repo's exporter imports. Campaign content is authored **here**, in `src/campaigns/`; the engine's own copies are test fixtures, not the published content.
 - **`contracts/`** — a submodule of [`SubZeroDev.ServiceContract`](https://github.com/The-Running-Dev/SubZeroDev.ServiceContract), which governs the published wire format (`formatVersion` 2, `kindId`-discriminated content, manifest entries carrying `id`/`version`/`digest`).
 - Both submodules are separate repositories with their own `AGENTS.md`/`CLAUDE.md`/`agent.md` (and `engine/` has its own `plans/`) — this file governs only this repository's own tree, not either submodule's.
 - The published campaign JSON lives at this repo's root; `manifest.json` here is `/manifest.json` at the Pages root. `scripts/build-site.mjs` assembles the deployed artifact from the manifest's own file list.
