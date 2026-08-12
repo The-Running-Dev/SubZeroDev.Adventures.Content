@@ -6,16 +6,30 @@
   "description": "Published campaign JSON for SubZeroDev.Adventures, governed by SubZeroDev.ServiceContract's content-document contract.",
   "scripts": {
     "setup": "npm --prefix engine/src/engine ci && npm --prefix engine/src/engine run build && npm --prefix contracts ci && npm --prefix contracts run build",
-    "export:content": "node scripts/export-content.mjs",
+    "export:content": "tsx scripts/export-content.ts",
+    "format": "prettier --write src scripts/export-content.ts package.json package-lock.json *.json tsconfig.json vitest.config.ts",
+    "format:check": "prettier --check src scripts/export-content.ts package.json package-lock.json *.json tsconfig.json vitest.config.ts",
+    "lint": "oxlint src scripts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
     "validate:content": "node scripts/validate-content.mjs",
     "build:site": "node scripts/build-site.mjs",
-    "check": "npm run export:content && npm run check:clean && npm run validate:content",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm run test && npm run export:content && npm run check:clean && npm run validate:content && npm run build:site",
     "check:clean": "git diff --exit-code -- \":(glob)*.json\" \":(exclude)package.json\" \":(exclude)package-lock.json\""
   },
   "engines": {
     "node": ">=24"
   },
   "devDependencies": {
-    "ajv": "^8.17.1"
+    "@types/node": "^24.13.3",
+    "ajv": "^8.17.1",
+    "oxlint": "^1.78.0",
+    "prettier": "^3.9.6",
+    "tsx": "^4.23.12",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.10"
+  },
+  "dependencies": {
+    "@the-running-dev/game-engine": "file:engine/src/engine"
   }
 }

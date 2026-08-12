@@ -1,0 +1,32 @@
+{
+  "name": "bureaucracy-full-arc",
+  "config": {
+    "campaignId": "bulgaria-bureaucracy",
+    "seed": "bureaucracy-seed-1"
+  },
+  "campaignVersion": "2.0.0",
+  "capturedUnder": "0.5.0",
+  "submissions": [
+    {
+      "actionId": "wait"
+    },
+    {
+      "actionId": "registry_route_listen"
+    },
+    {
+      "actionId": "registry_route_event_1a_proceed"
+    },
+    {
+      "actionId": "registry_route_prepare"
+    },
+    {
+      "actionId": "registry_route_event_2a_proceed"
+    },
+    {
+      "actionId": "registry_route_steady"
+    },
+    {
+      "actionId": "choose_document_obtained"
+    }
+  ]
+}
