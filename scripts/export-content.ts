@@ -4,7 +4,8 @@
  * output is written, so an authoring failure cannot leave a partial manifest behind.
  */
 
-import { mkdir, writeFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
+import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -123,7 +124,12 @@ const entries: readonly Entry[] = [
 ];
 
 /** Builds every entry first, writes nothing until every build has succeeded — the abort
- *  this graduation adds. Returns the built portables in source order. */
+ *  this graduation adds. Returns the built portables in source order.
+ *
+ *  Failures are tagged by stage: "[content]" is a campaign's own build() rejecting its
+ *  authored content, "[export]" is toPortable() throwing on an export-plumbing precondition
+ *  (e.g. a migration wired to the wrong campaign kind) -- a different bug, in a different
+ *  file, and worth telling apart at a glance rather than dumping both into one bullet list. */
 function buildAllOrAbort(): readonly PortableCampaign[] {
   const portables: PortableCampaign[] = [];
   const failures: string[] = [];
@@ -131,14 +137,14 @@ function buildAllOrAbort(): readonly PortableCampaign[] {
   for (const entry of entries) {
     const result = entry.build();
     if (!result.ok || result.value === undefined) {
-      failures.push(`  - ${JSON.stringify(result.errors)}`);
+      failures.push(`  - [content] ${JSON.stringify(result.errors)}`);
       continue;
     }
     try {
       portables.push(toPortable(result.value, entry.catalog, entry.migration));
     } catch (error) {
       failures.push(
-        `  - ${error instanceof Error ? error.message : String(error)}`,
+        `  - [export] ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -149,13 +155,39 @@ function buildAllOrAbort(): readonly PortableCampaign[] {
     );
   }
 
+  const seenIds = new Set<string>();
+  for (const portable of portables) {
+    if (seenIds.has(portable.campaign.id)) {
+      throw new Error(
+        `two entries build campaign id "${portable.campaign.id}" -- they would overwrite each other's published file. Writing nothing.`,
+      );
+    }
+    seenIds.add(portable.campaign.id);
+  }
+
   return portables;
+}
+
+/** The manifest's own view of what's currently published, read before it's overwritten --
+ *  the only way to tell a campaign dropped from `entries` apart from one that was never
+ *  published at all. Empty when no manifest exists yet (a first run). */
+async function previouslyPublishedFiles(
+  manifestPath: string,
+): Promise<readonly string[]> {
+  if (!existsSync(manifestPath)) return [];
+  const manifest = JSON.parse(await readFile(manifestPath, "utf8")) as {
+    campaigns: readonly { file: string }[];
+  };
+  return manifest.campaigns.map((entry) => entry.file);
 }
 
 async function main(): Promise<void> {
   const portables = buildAllOrAbort();
 
   await mkdir(outDir, { recursive: true });
+
+  const manifestPath = path.join(outDir, "manifest.json");
+  const previouslyPublished = await previouslyPublishedFiles(manifestPath);
 
   const manifestEntries = await Promise.all(
     portables.map(async (portable): Promise<PortableManifestEntry> => {
@@ -183,11 +215,18 @@ async function main(): Promise<void> {
     resolution: digestManifestResolution(manifestEntries),
   };
   await writeFile(
-    path.join(outDir, "manifest.json"),
+    manifestPath,
     `${JSON.stringify(manifest, null, 2)}\n`,
     "utf8",
   );
   console.log(`Wrote manifest.json (${manifestEntries.length} campaigns)`);
+
+  const stillPublished = new Set(manifestEntries.map((entry) => entry.file));
+  for (const file of previouslyPublished) {
+    if (stillPublished.has(file)) continue;
+    await rm(path.join(outDir, file), { force: true });
+    console.log(`Removed ${file} -- no longer exported`);
+  }
 }
 
 main().catch((error: unknown) => {

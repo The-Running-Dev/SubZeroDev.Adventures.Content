@@ -8,7 +8,11 @@
 
 import { execFileSync } from "node:child_process";
 
-const pathspec = [":(glob)*.json", ":(exclude)package.json", ":(exclude)package-lock.json"];
+const pathspec = [
+  ":(glob)*.json",
+  ":(exclude)package.json",
+  ":(exclude)package-lock.json",
+];
 
 const output = execFileSync(
   "git",
@@ -17,7 +21,9 @@ const output = execFileSync(
 );
 
 if (output.trim().length > 0) {
-  console.error("export:content produced a change git status was not expecting:\n");
+  console.error(
+    "export:content produced a change git status was not expecting:\n",
+  );
   console.error(output);
   console.error(
     'Run "npm run export:content" and commit the result, or investigate why a campaign source changed without a matching published document.',

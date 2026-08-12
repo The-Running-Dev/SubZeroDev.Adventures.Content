@@ -21,16 +21,27 @@ import { join } from "node:path";
 import Ajv2020 from "ajv/dist/2020.js";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
-const contractPath = join(repoRoot, "contracts", "dist", "content-contract.json");
+const contractPath = join(
+  repoRoot,
+  "contracts",
+  "dist",
+  "content-contract.json",
+);
 const publishDir = repoRoot;
 
 const contract = JSON.parse(await readFile(contractPath, "utf8"));
 if (contract.contractKind !== "content-document") {
-  throw new Error(`${contractPath}: expected contractKind "content-document", got "${contract.contractKind}"`);
+  throw new Error(
+    `${contractPath}: expected contractKind "content-document", got "${contract.contractKind}"`,
+  );
 }
 
-const manifestSchema = contract.schemas.find((s) => s.$id.endsWith("/manifest.json"));
-const campaignSchema = contract.schemas.find((s) => s.$id.endsWith("/campaign.json"));
+const manifestSchema = contract.schemas.find((s) =>
+  s.$id.endsWith("/manifest.json"),
+);
+const campaignSchema = contract.schemas.find((s) =>
+  s.$id.endsWith("/campaign.json"),
+);
 if (!manifestSchema || !campaignSchema) {
   throw new Error(`${contractPath}: missing manifest or campaign schema`);
 }
@@ -53,7 +64,9 @@ let failures = 0;
 
 for (const entry of manifest.campaigns) {
   if (!publishedFiles.has(entry.file)) {
-    console.error(`FAIL manifest lists "${entry.file}", but it was not published`);
+    console.error(
+      `FAIL manifest lists "${entry.file}", but it was not published`,
+    );
     failures += 1;
     continue;
   }
@@ -72,4 +85,6 @@ if (failures > 0) {
   console.error(`\n${failures} file(s) failed content-contract validation.`);
   process.exit(1);
 }
-console.log(`\nAll published documents validate against the content contract (formatVersion ${contract.formatVersion}).`);
+console.log(
+  `\nAll published documents validate against the content contract (formatVersion ${contract.formatVersion}).`,
+);

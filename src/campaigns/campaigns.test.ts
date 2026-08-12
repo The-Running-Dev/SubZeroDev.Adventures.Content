@@ -135,6 +135,20 @@ function reachableEndingIds(content: StoryGraphContent): Set<string> {
   return endings;
 }
 
+/** Campaign ids are the only stable handle on `entries` — array position drifts the moment
+ *  a campaign is inserted or reordered, and nothing would signal that a test's selection had
+ *  silently moved to a different campaign. */
+function builtCampaignId(result: {
+  ok: boolean;
+  value?: { campaign: { id: string } };
+}): string {
+  if (!result.ok || result.value === undefined)
+    throw new Error("campaign build failed");
+  return result.value.campaign.id;
+}
+
+const isBulgariaCampaign = (id: string): boolean => id.startsWith("bulgaria-");
+
 describe("published campaign sources", () => {
   it("builds and validates all nine campaigns", () => {
     const results = entries.map(([build]) => build());
@@ -148,7 +162,10 @@ describe("published campaign sources", () => {
   });
 
   it("keeps the expanded Bulgaria catalog at 75 reachable endings and portable-hydrates it", () => {
-    const bulgaria = entries.slice(3, 8);
+    const bulgaria = entries.filter(([build]) =>
+      isBulgariaCampaign(builtCampaignId(build())),
+    );
+    expect(bulgaria.length).toBe(5);
     const reachableCount = bulgaria.reduce((total, [build]) => {
       const result = build();
       if (!result.ok || result.value === undefined)
@@ -216,24 +233,15 @@ describe("published campaign sources", () => {
       return entry.digest;
     };
 
-    const unaffected: readonly (readonly [() => unknown, ...unknown[]])[] = [
-      entries[0],
-      entries[1],
-      entries[2],
-      entries[8],
-    ];
+    const unaffected = entries.filter(
+      ([build]) => !isBulgariaCampaign(builtCampaignId(build())),
+    );
+    expect(unaffected.length).toBe(4);
     for (const [build, catalog, migration] of unaffected) {
-      const result = build() as {
-        ok: boolean;
-        value?: { campaign: { id: string } };
-      };
+      const result = build();
       if (!result.ok || result.value === undefined)
         throw new Error("campaign build failed");
-      const portable = toPortable(
-        result.value as Parameters<typeof toPortable>[0],
-        catalog as Parameters<typeof toPortable>[1],
-        migration as Parameters<typeof toPortable>[2],
-      );
+      const portable = toPortable(result.value, catalog, migration);
       expect(digestPortableCampaign(portable)).toBe(
         manifestDigest(result.value.campaign.id),
       );

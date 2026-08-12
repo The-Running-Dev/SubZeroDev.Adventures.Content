@@ -31,11 +31,15 @@ for (const file of await publishedFiles(repoRoot)) {
   await copyFile(join(repoRoot, file), join(distDir, file));
 }
 
-const manifest = JSON.parse(await readFile(join(repoRoot, MANIFEST_FILE), "utf8"));
+const manifest = JSON.parse(
+  await readFile(join(repoRoot, MANIFEST_FILE), "utf8"),
+);
 
 const cards = await Promise.all(
   manifest.campaigns.map(async (entry) => {
-    const campaign = JSON.parse(await readFile(join(repoRoot, entry.file), "utf8"));
+    const campaign = JSON.parse(
+      await readFile(join(repoRoot, entry.file), "utf8"),
+    );
     const { title, description, duration, contentNotice } = campaign.catalog;
     return `
     <li class="campaign">
@@ -81,4 +85,6 @@ const html = `<!doctype html>
 `;
 
 await writeFile(join(distDir, "index.html"), html);
-console.log(`Built dist/ -- ${manifest.campaigns.length} campaigns + manifest.json + index.html`);
+console.log(
+  `Built dist/ -- ${manifest.campaigns.length} campaigns + manifest.json + index.html`,
+);
