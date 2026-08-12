@@ -58,6 +58,10 @@ import {
   buildSakiQuestCampaign,
   sakiQuestCatalog,
 } from "./saki-quest-for-redemption.js";
+import {
+  buildGettingStartedCampaign,
+  gettingStartedCatalog,
+} from "./getting-started.js";
 
 const entries = [
   [
@@ -97,6 +101,7 @@ const entries = [
   ],
   [buildBulgarianAdventuresCampaign, bulgarianAdventuresCatalog],
   [buildSakiQuestCampaign, sakiQuestCatalog],
+  [buildGettingStartedCampaign, gettingStartedCatalog],
 ] as const;
 
 const kinds = { "story-graph": storyGraphKind } as unknown as KindRegistry;
@@ -158,7 +163,7 @@ function builtCampaignId(result: {
 const isBulgariaCampaign = (id: string): boolean => id.startsWith("bulgaria-");
 
 describe("published campaign sources", () => {
-  it("builds and validates all ten campaigns", () => {
+  it("builds and validates all eleven campaigns", () => {
     const results = entries.map(([build]) => build());
     const built = results.flatMap((result) =>
       result.ok && result.value !== undefined ? [result.value] : [],
@@ -229,7 +234,7 @@ describe("published campaign sources", () => {
     );
   });
 
-  it("keeps the five non-Bulgaria campaigns' published digests unchanged", async () => {
+  it("keeps the six non-Bulgaria campaigns' published digests unchanged", async () => {
     const repoRoot = fileURLToPath(new URL("../../", import.meta.url));
     const manifest = JSON.parse(
       await readFile(`${repoRoot}manifest.json`, "utf8"),
@@ -244,7 +249,7 @@ describe("published campaign sources", () => {
     const unaffected = entries.filter(
       ([build]) => !isBulgariaCampaign(builtCampaignId(build())),
     );
-    expect(unaffected.length).toBe(5);
+    expect(unaffected.length).toBe(6);
     for (const [build, catalog, migration] of unaffected) {
       const result = build();
       if (!result.ok || result.value === undefined)
