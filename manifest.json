@@ -50,11 +50,17 @@
       "digest": "sha-256:aa729f411767d51a611a510e66dec62ab3f18a7dd1d5aeed18d0f755d41ab69e"
     },
     {
+      "file": "bulgarian-adventures.json",
+      "id": "bulgarian-adventures",
+      "version": "1.0.0",
+      "digest": "sha-256:42cad6ff9c3d54bfb6eb5c8419d5a021c30d75f6b92940f469f513be13244f7a"
+    },
+    {
       "file": "saki-quest-for-redemption.json",
       "id": "saki-quest-for-redemption",
       "version": "1.0.0",
       "digest": "sha-256:9b8e4b0cd93e421fd995232e52f36a408725e4a4194d6bc1a18f33b38eac46a3"
     }
   ],
-  "resolution": "sha-256:9b487629351b980c8499ae8b53c1048fbb59639ef72ebc32578635df2b27333d"
+  "resolution": "sha-256:ab6b72c878c7abf00c301234358bcc17037e37ac1d2aac7ec04ef0363c2dfa98"
 }

@@ -1,0 +1,1186 @@
+{
+  "formatVersion": 2,
+  "catalog": {
+    "title": "Bulgarian Adventures: Everything Is Fine",
+    "description": "Survive one completely ordinary Bulgarian day involving parking sovereignty, courier physics, a legendary майстор, village intelligence, and one final document.",
+    "duration": "15–25 min",
+    "contentNotice": "Satire about everyday bureaucracy, driving, neighbours, tradespeople, family logistics, and the national ability to solve impossible problems unofficially.",
+    "featured": true
+  },
+  "campaign": {
+    "id": "bulgarian-adventures",
+    "version": "1.0.0",
+    "titleKey": "bgadv.campaign.title",
+    "kindId": "story-graph",
+    "content": {
+      "descriptionKey": "bgadv.campaign.description",
+      "variables": {
+        "patience": {
+          "type": "int",
+          "initial": 5,
+          "min": 0,
+          "max": 12,
+          "visible": true,
+          "labelKey": "bgadv.var_patience.label"
+        },
+        "connections": {
+          "type": "int",
+          "initial": 0,
+          "min": 0,
+          "max": 12,
+          "visible": true,
+          "labelKey": "bgadv.var_connections.label"
+        },
+        "absurdity": {
+          "type": "int",
+          "initial": 0,
+          "min": 0,
+          "max": 20,
+          "visible": true,
+          "labelKey": "bgadv.var_absurdity.label"
+        },
+        "documents": {
+          "type": "int",
+          "initial": 0,
+          "min": 0,
+          "max": 8,
+          "visible": true,
+          "labelKey": "bgadv.var_documents.label"
+        },
+        "rakia": {
+          "type": "int",
+          "initial": 0,
+          "min": 0,
+          "max": 6,
+          "visible": true,
+          "labelKey": "bgadv.var_rakia.label"
+        },
+        "chair_respected": {
+          "type": "bool",
+          "initial": false
+        },
+        "courier_found": {
+          "type": "bool",
+          "initial": false
+        },
+        "master_arrived": {
+          "type": "bool",
+          "initial": false
+        },
+        "baba_allied": {
+          "type": "bool",
+          "initial": false
+        },
+        "has_blue_pen": {
+          "type": "bool",
+          "initial": false
+        }
+      },
+      "nodes": {
+        "prologue": {
+          "id": "prologue",
+          "kind": "choice",
+          "textKey": "bgadv.prologue.text",
+          "choices": [
+            {
+              "id": "begin_optimistic",
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "patience",
+                  "by": 1
+                }
+              ],
+              "goto": "parking",
+              "labelKey": "bgadv.prologue.begin_optimistic"
+            },
+            {
+              "id": "begin_prepared",
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "documents",
+                  "by": 1
+                },
+                {
+                  "op": "set",
+                  "var": "has_blue_pen",
+                  "value": true
+                }
+              ],
+              "goto": "parking",
+              "labelKey": "bgadv.prologue.begin_prepared"
+            },
+            {
+              "id": "begin_local",
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "connections",
+                  "by": 1
+                }
+              ],
+              "goto": "parking",
+              "labelKey": "bgadv.prologue.begin_local"
+            }
+          ]
+        },
+        "parking": {
+          "id": "parking",
+          "kind": "choice",
+          "textKey": "bgadv.parking.text",
+          "choices": [
+            {
+              "id": "respect_chair",
+              "effects": [
+                {
+                  "op": "set",
+                  "var": "chair_respected",
+                  "value": true
+                },
+                {
+                  "op": "increment",
+                  "var": "connections",
+                  "by": 1
+                }
+              ],
+              "goto": "parking_result_good",
+              "labelKey": "bgadv.parking.respect_chair"
+            },
+            {
+              "id": "move_chair",
+              "effects": [
+                {
+                  "op": "decrement",
+                  "var": "patience",
+                  "by": 1
+                },
+                {
+                  "op": "increment",
+                  "var": "absurdity",
+                  "by": 2
+                }
+              ],
+              "goto": "parking_council",
+              "labelKey": "bgadv.parking.move_chair"
+            },
+            {
+              "id": "ask_whose_chair",
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "absurdity",
+                  "by": 1
+                }
+              ],
+              "goto": "parking_witnesses",
+              "labelKey": "bgadv.parking.ask_whose_chair"
+            }
+          ]
+        },
+        "parking_council": {
+          "id": "parking_council",
+          "kind": "choice",
+          "textKey": "bgadv.parking_council.text",
+          "choices": [
+            {
+              "id": "cite_law",
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "absurdity",
+                  "by": 2
+                }
+              ],
+              "goto": "parking_result_bad",
+              "labelKey": "bgadv.parking_council.cite_law"
+            },
+            {
+              "id": "apologize_to_chair",
+              "effects": [
+                {
+                  "op": "set",
+                  "var": "chair_respected",
+                  "value": true
+                },
+                {
+                  "op": "increment",
+                  "var": "connections",
+                  "by": 1
+                }
+              ],
+              "goto": "parking_result_good",
+              "labelKey": "bgadv.parking_council.apologize_to_chair"
+            }
+          ]
+        },
+        "parking_witnesses": {
+          "id": "parking_witnesses",
+          "kind": "random",
+          "textKey": "bgadv.parking_witnesses.text",
+          "transitions": [
+            {
+              "weight": 1,
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "connections",
+                  "by": 1
+                }
+              ],
+              "goto": "parking_result_good"
+            },
+            {
+              "weight": 1,
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "absurdity",
+                  "by": 2
+                }
+              ],
+              "goto": "parking_result_bad"
+            }
+          ]
+        },
+        "parking_result_good": {
+          "id": "parking_result_good",
+          "kind": "choice",
+          "textKey": "bgadv.parking_result_good.text",
+          "choices": [
+            {
+              "id": "to_courier_good",
+              "goto": "courier",
+              "labelKey": "bgadv.parking_result_good.to_courier_good"
+            }
+          ]
+        },
+        "parking_result_bad": {
+          "id": "parking_result_bad",
+          "kind": "choice",
+          "textKey": "bgadv.parking_result_bad.text",
+          "choices": [
+            {
+              "id": "to_courier_bad",
+              "goto": "courier",
+              "labelKey": "bgadv.parking_result_bad.to_courier_bad"
+            }
+          ]
+        },
+        "courier": {
+          "id": "courier",
+          "kind": "choice",
+          "textKey": "bgadv.courier.text",
+          "choices": [
+            {
+              "id": "say_location",
+              "effects": [
+                {
+                  "op": "decrement",
+                  "var": "patience",
+                  "by": 1
+                }
+              ],
+              "goto": "courier_quantum",
+              "labelKey": "bgadv.courier.say_location"
+            },
+            {
+              "id": "run_outside",
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "absurdity",
+                  "by": 1
+                }
+              ],
+              "goto": "courier_street",
+              "labelKey": "bgadv.courier.run_outside"
+            },
+            {
+              "id": "ask_landmark",
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "connections",
+                  "by": 1
+                }
+              ],
+              "goto": "courier_landmark",
+              "labelKey": "bgadv.courier.ask_landmark"
+            }
+          ]
+        },
+        "courier_quantum": {
+          "id": "courier_quantum",
+          "kind": "choice",
+          "textKey": "bgadv.courier_quantum.text",
+          "choices": [
+            {
+              "id": "accept_quantum",
+              "effects": [
+                {
+                  "op": "set",
+                  "var": "courier_found",
+                  "value": true
+                }
+              ],
+              "goto": "courier_result",
+              "labelKey": "bgadv.courier_quantum.accept_quantum"
+            },
+            {
+              "id": "request_office",
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "documents",
+                  "by": 1
+                }
+              ],
+              "goto": "courier_result",
+              "labelKey": "bgadv.courier_quantum.request_office"
+            }
+          ]
+        },
+        "courier_street": {
+          "id": "courier_street",
+          "kind": "random",
+          "textKey": "bgadv.courier_street.text",
+          "transitions": [
+            {
+              "weight": 1,
+              "effects": [
+                {
+                  "op": "set",
+                  "var": "courier_found",
+                  "value": true
+                }
+              ],
+              "goto": "courier_result"
+            },
+            {
+              "weight": 1,
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "absurdity",
+                  "by": 2
+                }
+              ],
+              "goto": "courier_result"
+            }
+          ]
+        },
+        "courier_landmark": {
+          "id": "courier_landmark",
+          "kind": "choice",
+          "textKey": "bgadv.courier_landmark.text",
+          "choices": [
+            {
+              "id": "decode_landmark",
+              "effects": [
+                {
+                  "op": "set",
+                  "var": "courier_found",
+                  "value": true
+                },
+                {
+                  "op": "increment",
+                  "var": "connections",
+                  "by": 1
+                }
+              ],
+              "goto": "courier_result",
+              "labelKey": "bgadv.courier_landmark.decode_landmark"
+            }
+          ]
+        },
+        "courier_result": {
+          "id": "courier_result",
+          "kind": "choice",
+          "textKey": "bgadv.courier_result.text",
+          "choices": [
+            {
+              "id": "open_package",
+              "goto": "master",
+              "labelKey": "bgadv.courier_result.open_package"
+            },
+            {
+              "id": "preserve_package",
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "documents",
+                  "by": 1
+                }
+              ],
+              "goto": "master",
+              "labelKey": "bgadv.courier_result.preserve_package"
+            }
+          ]
+        },
+        "master": {
+          "id": "master",
+          "kind": "choice",
+          "textKey": "bgadv.master.text",
+          "choices": [
+            {
+              "id": "call_master",
+              "effects": [
+                {
+                  "op": "decrement",
+                  "var": "patience",
+                  "by": 1
+                }
+              ],
+              "goto": "master_time",
+              "labelKey": "bgadv.master.call_master"
+            },
+            {
+              "id": "call_friend",
+              "requirements": {
+                "field": "var.connections",
+                "operator": "greater_or_equal",
+                "value": 2
+              },
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "connections",
+                  "by": 1
+                }
+              ],
+              "goto": "master_arrival",
+              "labelKey": "bgadv.master.call_friend",
+              "requirementFailKey": "bgadv.master.call_friend_fail"
+            },
+            {
+              "id": "watch_video",
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "absurdity",
+                  "by": 2
+                }
+              ],
+              "goto": "master_diy",
+              "labelKey": "bgadv.master.watch_video"
+            }
+          ]
+        },
+        "master_time": {
+          "id": "master_time",
+          "kind": "choice",
+          "textKey": "bgadv.master_time.text",
+          "choices": [
+            {
+              "id": "ask_which_monday",
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "absurdity",
+                  "by": 1
+                }
+              ],
+              "goto": "master_arrival",
+              "labelKey": "bgadv.master_time.ask_which_monday"
+            },
+            {
+              "id": "accept_monday",
+              "goto": "master_arrival",
+              "labelKey": "bgadv.master_time.accept_monday"
+            }
+          ]
+        },
+        "master_diy": {
+          "id": "master_diy",
+          "kind": "random",
+          "textKey": "bgadv.master_diy.text",
+          "transitions": [
+            {
+              "weight": 1,
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "documents",
+                  "by": 1
+                }
+              ],
+              "goto": "master_result"
+            },
+            {
+              "weight": 1,
+              "effects": [
+                {
+                  "op": "decrement",
+                  "var": "patience",
+                  "by": 2
+                },
+                {
+                  "op": "increment",
+                  "var": "absurdity",
+                  "by": 2
+                }
+              ],
+              "goto": "master_arrival"
+            }
+          ]
+        },
+        "master_arrival": {
+          "id": "master_arrival",
+          "kind": "choice",
+          "textKey": "bgadv.master_arrival.text",
+          "choices": [
+            {
+              "id": "accept_new_price",
+              "effects": [
+                {
+                  "op": "set",
+                  "var": "master_arrived",
+                  "value": true
+                },
+                {
+                  "op": "increment",
+                  "var": "connections",
+                  "by": 1
+                }
+              ],
+              "goto": "master_result",
+              "labelKey": "bgadv.master_arrival.accept_new_price"
+            },
+            {
+              "id": "mention_original_price",
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "absurdity",
+                  "by": 2
+                },
+                {
+                  "op": "set",
+                  "var": "master_arrived",
+                  "value": true
+                }
+              ],
+              "goto": "master_result",
+              "labelKey": "bgadv.master_arrival.mention_original_price"
+            }
+          ]
+        },
+        "master_result": {
+          "id": "master_result",
+          "kind": "choice",
+          "textKey": "bgadv.master_result.text",
+          "choices": [
+            {
+              "id": "to_village",
+              "goto": "village",
+              "labelKey": "bgadv.master_result.to_village"
+            }
+          ]
+        },
+        "village": {
+          "id": "village",
+          "kind": "choice",
+          "textKey": "bgadv.village.text",
+          "choices": [
+            {
+              "id": "deny_news",
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "absurdity",
+                  "by": 2
+                }
+              ],
+              "goto": "baba_network",
+              "labelKey": "bgadv.village.deny_news"
+            },
+            {
+              "id": "ask_source",
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "connections",
+                  "by": 1
+                }
+              ],
+              "goto": "baba_source",
+              "labelKey": "bgadv.village.ask_source"
+            },
+            {
+              "id": "offer_coffee",
+              "effects": [
+                {
+                  "op": "set",
+                  "var": "baba_allied",
+                  "value": true
+                },
+                {
+                  "op": "increment",
+                  "var": "connections",
+                  "by": 2
+                }
+              ],
+              "goto": "baba_alliance",
+              "labelKey": "bgadv.village.offer_coffee"
+            }
+          ]
+        },
+        "baba_network": {
+          "id": "baba_network",
+          "kind": "choice",
+          "textKey": "bgadv.baba_network.text",
+          "choices": [
+            {
+              "id": "surrender_privacy",
+              "effects": [
+                {
+                  "op": "set",
+                  "var": "baba_allied",
+                  "value": true
+                }
+              ],
+              "goto": "village_feast",
+              "labelKey": "bgadv.baba_network.surrender_privacy"
+            },
+            {
+              "id": "issue_correction",
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "absurdity",
+                  "by": 2
+                }
+              ],
+              "goto": "village_feast",
+              "labelKey": "bgadv.baba_network.issue_correction"
+            }
+          ]
+        },
+        "baba_source": {
+          "id": "baba_source",
+          "kind": "choice",
+          "textKey": "bgadv.baba_source.text",
+          "choices": [
+            {
+              "id": "accept_source",
+              "effects": [
+                {
+                  "op": "set",
+                  "var": "baba_allied",
+                  "value": true
+                }
+              ],
+              "goto": "village_feast",
+              "labelKey": "bgadv.baba_source.accept_source"
+            }
+          ]
+        },
+        "baba_alliance": {
+          "id": "baba_alliance",
+          "kind": "choice",
+          "textKey": "bgadv.baba_alliance.text",
+          "choices": [
+            {
+              "id": "receive_intelligence",
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "documents",
+                  "by": 1
+                }
+              ],
+              "goto": "village_feast",
+              "labelKey": "bgadv.baba_alliance.receive_intelligence"
+            }
+          ]
+        },
+        "village_feast": {
+          "id": "village_feast",
+          "kind": "choice",
+          "textKey": "bgadv.village_feast.text",
+          "choices": [
+            {
+              "id": "one_rakia",
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "rakia",
+                  "by": 1
+                },
+                {
+                  "op": "increment",
+                  "var": "patience",
+                  "by": 1
+                }
+              ],
+              "goto": "municipality",
+              "labelKey": "bgadv.village_feast.one_rakia"
+            },
+            {
+              "id": "refuse_rakia",
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "absurdity",
+                  "by": 2
+                }
+              ],
+              "goto": "municipality",
+              "labelKey": "bgadv.village_feast.refuse_rakia"
+            },
+            {
+              "id": "define_one",
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "rakia",
+                  "by": 2
+                },
+                {
+                  "op": "increment",
+                  "var": "connections",
+                  "by": 1
+                }
+              ],
+              "goto": "municipality",
+              "labelKey": "bgadv.village_feast.define_one"
+            }
+          ]
+        },
+        "municipality": {
+          "id": "municipality",
+          "kind": "choice",
+          "textKey": "bgadv.municipality.text",
+          "choices": [
+            {
+              "id": "present_folder",
+              "requirements": {
+                "field": "var.documents",
+                "operator": "greater_or_equal",
+                "value": 2
+              },
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "patience",
+                  "by": 1
+                }
+              ],
+              "goto": "clerk",
+              "labelKey": "bgadv.municipality.present_folder",
+              "requirementFailKey": "bgadv.municipality.present_folder_fail"
+            },
+            {
+              "id": "ask_which_document",
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "absurdity",
+                  "by": 2
+                }
+              ],
+              "goto": "clerk",
+              "labelKey": "bgadv.municipality.ask_which_document"
+            },
+            {
+              "id": "call_connection",
+              "requirements": {
+                "field": "var.connections",
+                "operator": "greater_or_equal",
+                "value": 3
+              },
+              "effects": [
+                {
+                  "op": "decrement",
+                  "var": "connections",
+                  "by": 1
+                }
+              ],
+              "goto": "clerk_connection",
+              "labelKey": "bgadv.municipality.call_connection",
+              "requirementFailKey": "bgadv.municipality.call_connection_fail"
+            }
+          ]
+        },
+        "clerk": {
+          "id": "clerk",
+          "kind": "choice",
+          "textKey": "bgadv.clerk.text",
+          "choices": [
+            {
+              "id": "use_blue_pen",
+              "showWhen": {
+                "field": "var.has_blue_pen",
+                "operator": "equals",
+                "value": true
+              },
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "documents",
+                  "by": 1
+                }
+              ],
+              "goto": "final_counter",
+              "labelKey": "bgadv.clerk.use_blue_pen"
+            },
+            {
+              "id": "find_blue_pen",
+              "effects": [
+                {
+                  "op": "decrement",
+                  "var": "patience",
+                  "by": 1
+                },
+                {
+                  "op": "increment",
+                  "var": "absurdity",
+                  "by": 1
+                }
+              ],
+              "goto": "pen_shop",
+              "labelKey": "bgadv.clerk.find_blue_pen"
+            }
+          ]
+        },
+        "clerk_connection": {
+          "id": "clerk_connection",
+          "kind": "choice",
+          "textKey": "bgadv.clerk_connection.text",
+          "choices": [
+            {
+              "id": "accept_help",
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "documents",
+                  "by": 1
+                }
+              ],
+              "goto": "final_counter",
+              "labelKey": "bgadv.clerk_connection.accept_help"
+            }
+          ]
+        },
+        "pen_shop": {
+          "id": "pen_shop",
+          "kind": "choice",
+          "textKey": "bgadv.pen_shop.text",
+          "choices": [
+            {
+              "id": "buy_pen",
+              "effects": [
+                {
+                  "op": "set",
+                  "var": "has_blue_pen",
+                  "value": true
+                },
+                {
+                  "op": "increment",
+                  "var": "documents",
+                  "by": 1
+                }
+              ],
+              "goto": "final_counter",
+              "labelKey": "bgadv.pen_shop.buy_pen"
+            },
+            {
+              "id": "borrow_pen",
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "connections",
+                  "by": 1
+                }
+              ],
+              "goto": "final_counter",
+              "labelKey": "bgadv.pen_shop.borrow_pen"
+            }
+          ]
+        },
+        "final_counter": {
+          "id": "final_counter",
+          "kind": "choice",
+          "textKey": "bgadv.final_counter.text",
+          "choices": [
+            {
+              "id": "submit_normally",
+              "effects": [
+                {
+                  "op": "decrement",
+                  "var": "patience",
+                  "by": 1
+                }
+              ],
+              "goto": "final_event",
+              "labelKey": "bgadv.final_counter.submit_normally"
+            },
+            {
+              "id": "deploy_baba",
+              "showWhen": {
+                "field": "var.baba_allied",
+                "operator": "equals",
+                "value": true
+              },
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "connections",
+                  "by": 2
+                }
+              ],
+              "goto": "ending_local_protocol",
+              "labelKey": "bgadv.final_counter.deploy_baba"
+            },
+            {
+              "id": "declare_victory",
+              "requirements": {
+                "field": "var.absurdity",
+                "operator": "greater_or_equal",
+                "value": 8
+              },
+              "goto": "ending_became_system",
+              "labelKey": "bgadv.final_counter.declare_victory",
+              "requirementFailKey": "bgadv.final_counter.declare_victory_fail"
+            }
+          ]
+        },
+        "final_event": {
+          "id": "final_event",
+          "kind": "random",
+          "textKey": "bgadv.final_event.text",
+          "transitions": [
+            {
+              "weight": 2,
+              "goto": "ending_document_received"
+            },
+            {
+              "weight": 1,
+              "goto": "ending_lunch_break"
+            },
+            {
+              "weight": 1,
+              "effects": [
+                {
+                  "op": "increment",
+                  "var": "absurdity",
+                  "by": 2
+                }
+              ],
+              "goto": "ending_wrong_municipality"
+            }
+          ]
+        },
+        "ending_document_received": {
+          "id": "ending_document_received",
+          "kind": "ending",
+          "textKey": "bgadv.ending_document_received.text",
+          "endingId": "document_received",
+          "outcome": "win"
+        },
+        "ending_local_protocol": {
+          "id": "ending_local_protocol",
+          "kind": "ending",
+          "textKey": "bgadv.ending_local_protocol.text",
+          "endingId": "local_protocol",
+          "outcome": "win"
+        },
+        "ending_became_system": {
+          "id": "ending_became_system",
+          "kind": "ending",
+          "textKey": "bgadv.ending_became_system.text",
+          "endingId": "became_the_system",
+          "outcome": "neutral"
+        },
+        "ending_lunch_break": {
+          "id": "ending_lunch_break",
+          "kind": "ending",
+          "textKey": "bgadv.ending_lunch_break.text",
+          "endingId": "lunch_break",
+          "outcome": "neutral"
+        },
+        "ending_wrong_municipality": {
+          "id": "ending_wrong_municipality",
+          "kind": "ending",
+          "textKey": "bgadv.ending_wrong_municipality.text",
+          "endingId": "wrong_municipality",
+          "outcome": "loss"
+        }
+      },
+      "startNodeId": "prologue",
+      "achievements": [
+        {
+          "id": "chair_diplomat",
+          "hidden": false,
+          "condition": {
+            "field": "var.chair_respected",
+            "operator": "equals",
+            "value": true
+          },
+          "nameKey": "bgadv.achievement_chair_diplomat.name",
+          "descriptionKey": "bgadv.achievement_chair_diplomat.description"
+        },
+        {
+          "id": "quantum_courier",
+          "hidden": false,
+          "condition": {
+            "field": "var.courier_found",
+            "operator": "equals",
+            "value": true
+          },
+          "nameKey": "bgadv.achievement_quantum_courier.name",
+          "descriptionKey": "bgadv.achievement_quantum_courier.description"
+        },
+        {
+          "id": "the_master_came",
+          "hidden": true,
+          "condition": {
+            "field": "var.master_arrived",
+            "operator": "equals",
+            "value": true
+          },
+          "nameKey": "bgadv.achievement_the_master_came.name",
+          "descriptionKey": "bgadv.achievement_the_master_came.description"
+        },
+        {
+          "id": "village_api",
+          "hidden": false,
+          "condition": {
+            "field": "var.baba_allied",
+            "operator": "equals",
+            "value": true
+          },
+          "nameKey": "bgadv.achievement_village_api.name",
+          "descriptionKey": "bgadv.achievement_village_api.description"
+        },
+        {
+          "id": "the_document",
+          "hidden": false,
+          "condition": {
+            "field": "ending",
+            "operator": "equals",
+            "value": "document_received"
+          },
+          "nameKey": "bgadv.achievement_the_document.name",
+          "descriptionKey": "bgadv.achievement_the_document.description"
+        },
+        {
+          "id": "wrong_municipality",
+          "hidden": true,
+          "condition": {
+            "field": "ending",
+            "operator": "equals",
+            "value": "wrong_municipality"
+          },
+          "nameKey": "bgadv.achievement_wrong_municipality.name",
+          "descriptionKey": "bgadv.achievement_wrong_municipality.description"
+        }
+      ]
+    }
+  },
+  "strings": {
+    "bgadv.achievement_chair_diplomat.description": "Recognize a plastic chair as a sovereign parking authority.",
+    "bgadv.achievement_chair_diplomat.name": "Chairman of Diplomacy",
+    "bgadv.achievement_quantum_courier.description": "Collapse the courier's location into a deliverable state.",
+    "bgadv.achievement_quantum_courier.name": "Observed the Courier",
+    "bgadv.achievement_the_document.description": "Obtain the final document before another requirement can spawn.",
+    "bgadv.achievement_the_document.name": "Five Errands, One Day",
+    "bgadv.achievement_the_master_came.description": "Witness a майстор appear on a day that can legally be described as Monday.",
+    "bgadv.achievement_the_master_came.name": "Monday Has Arrived",
+    "bgadv.achievement_village_api.description": "Authenticate with the oldest distributed intelligence network in Bulgaria.",
+    "bgadv.achievement_village_api.name": "Village API Access",
+    "bgadv.achievement_wrong_municipality.description": "Bring every correct document to the newly incorrect municipality.",
+    "bgadv.achievement_wrong_municipality.name": "Correct in the Wrong Place",
+    "bgadv.baba_alliance.receive_intelligence": "Memorize the useful parts and abandon epistemology",
+    "bgadv.baba_alliance.text": "Coffee is served. Within six minutes you receive the mayor's schedule, the clerk's maiden name, the correct office number, two medical diagnoses, and a warning that the municipality has run out of blue pens.",
+    "bgadv.baba_network.issue_correction": "Issue a factual correction to the village internet",
+    "bgadv.baba_network.surrender_privacy": "Accept the terms of service",
+    "bgadv.baba_network.text": "By the time your denial reaches the next house, it has become confirmation, included a secret engagement, and acquired a German car. The network corrects for missing data by improving it.",
+    "bgadv.baba_source.accept_source": "Accept the source as independently peer-reviewed",
+    "bgadv.baba_source.text": "She says her sister heard it from the pharmacist's daughter, whose husband saw your car near the courier office. You point out that you never went to the courier office. She nods. That explains why the courier was late.",
+    "bgadv.campaign.description": "One ordinary day. Five minor tasks. A nation-sized escape room where every clue is delivered verbally by somebody's aunt.",
+    "bgadv.campaign.title": "Bulgarian Adventures: Everything Is Fine",
+    "bgadv.clerk.find_blue_pen": "Go find a blue pen before the office discovers lunch again",
+    "bgadv.clerk.text": "The clerk examines your documents and finds them correct. Silence follows. Then she notices the application is signed in black ink. The regulation does not require blue ink. The regulation is not in this room.",
+    "bgadv.clerk.use_blue_pen": "Produce the blue pen you brought at 08:07",
+    "bgadv.clerk_connection.accept_help": "Accept this entirely procedural miracle",
+    "bgadv.clerk_connection.text": "Your connection does not bypass the rules. That would be improper. Instead, a woman enters from the next room, applies the same rules in the correct order, and solves the problem in forty seconds.",
+    "bgadv.courier.ask_landmark": "Ask what he can see",
+    "bgadv.courier.run_outside": "Run around the building looking for a white van",
+    "bgadv.courier.say_location": "State your exact address, which is printed on his screen",
+    "bgadv.courier.text": "ACT II — THE QUANTUM COURIER\n\nYour phone rings. The courier says, ‘I am outside.’ You are outside. He is not.\n\nIn Bulgaria, ‘outside’ is not a location. It is the beginning of negotiations.",
+    "bgadv.courier_landmark.decode_landmark": "Trust the national landmark protocol",
+    "bgadv.courier_landmark.text": "He can see the old shop. You ask which old shop. He says, ‘The old one.’ This is immediately understood by a passing pensioner, who points two streets east without slowing down.",
+    "bgadv.courier_quantum.accept_quantum": "Accept that both of you are outside in different realities",
+    "bgadv.courier_quantum.request_office": "Redirect the parcel to an office and request documentary proof of surrender",
+    "bgadv.courier_quantum.text": "You repeat the address. He repeats ‘I am outside,’ now with the wounded patience of a man forced to explain geography to its inventor. A dog barks through the phone from somewhere that is definitely not your street.",
+    "bgadv.courier_result.open_package": "Open the parcel immediately",
+    "bgadv.courier_result.preserve_package": "Keep every label and receipt in case the parcel later denies existing",
+    "bgadv.courier_result.text": "The parcel is finally transferred. The courier asks for exact change, produces exact change when you do not have it, and leaves before causality can inspect the transaction.",
+    "bgadv.courier_street.text": "You locate three white vans. One sells bread, one contains plumbing equipment, and one leaves exactly as you approach. The universe chooses which one mattered.",
+    "bgadv.ending_became_system.text": "YOU BECAME THE SYSTEM\n\nYou place every receipt, rumour, parking grievance, courier coordinate, and blue-ink signature on the counter. The file has achieved bureaucratic mass. The clerk stamps it to prevent further growth.\n\nOutside, somebody asks where Room 12 is. You point to Room 7 and say, ‘It depends.’",
+    "bgadv.ending_document_received.text": "THE DOCUMENT\n\nThe stamp lands. Your application is accepted. Nobody applauds because everyone in the room understands that attracting attention at this stage would be reckless.\n\nYou completed five errands in one Bulgarian day. This is not officially recognized as a national record, but only because the correct office is closed.",
+    "bgadv.ending_local_protocol.text": "THE LOCAL PROTOCOL\n\nThe clerk hears the aunt's name, asks how you know her, and discovers you ate banitsa in the same village fifteen years apart. The document is accepted through no corruption whatsoever—only an emergency restoration of social context.\n\nYou did not defeat the system. You authenticated through it.",
+    "bgadv.ending_lunch_break.text": "THE SECOND LUNCH\n\nAt 16:53 the clerk announces a seven-minute technical break. At 17:00 the office closes. Your application remains perfectly complete on the wrong side of the glass.\n\nTomorrow, you will arrive at 07:30. A note will say the office opens at 09:00 due to summer hours.",
+    "bgadv.ending_wrong_municipality.text": "THE WRONG MUNICIPALITY\n\nThe stamp stops one centimetre above the paper. The clerk asks why you came here. Your address, she explains, belongs to the municipality next door. It did not yesterday. The boundary changed online this morning.\n\nEvery document is correct. You are simply correct in the wrong jurisdiction.",
+    "bgadv.final_counter.declare_victory": "Declare that absurdity itself is now your supporting document",
+    "bgadv.final_counter.declare_victory_fail": "You have not documented enough absurdity to establish standing.",
+    "bgadv.final_counter.deploy_baba": "Mention the clerk's aunt by name",
+    "bgadv.final_counter.submit_normally": "Submit the document and permit fate one final move",
+    "bgadv.final_counter.text": "You return at 16:51. The form is blue. The copies are stamped. The clerk studies the complete file with the expression of someone whose final defensive perimeter has fallen.\n\nThere is still time for one last thing to be wrong.",
+    "bgadv.final_event.text": "The stamp rises. The universe rolls for jurisdiction.",
+    "bgadv.master.call_friend": "Call the friend of the person you now know",
+    "bgadv.master.call_friend_fail": "You do not yet know enough people who know people. This is not a skills problem. It is an infrastructure problem.",
+    "bgadv.master.call_master": "Ask when he is coming",
+    "bgadv.master.text": "ACT III — THE IMMORTAL МАЙСТОР\n\nThe parcel contains the valve your майстор said was impossible to find. The leaking pipe has been waiting for him since ‘Monday.’ No date was attached to Monday.\n\nYou call. He answers with, ‘I was just about to call you.’",
+    "bgadv.master.watch_video": "Watch a nine-minute repair video and become temporarily licensed",
+    "bgadv.master_arrival.accept_new_price": "Accept the new price as the cost of witnessing a miracle",
+    "bgadv.master_arrival.mention_original_price": "Mention the original price and watch economics become folklore",
+    "bgadv.master_arrival.text": "The майстор arrives. This is statistically significant. He examines the valve, the pipe, the wall, and your decision to buy the valve yourself. The original price is no longer available because the problem has now been seen in person.",
+    "bgadv.master_diy.text": "The video says ‘simply remove the old fitting.’ The fitting has spent forty years becoming structurally and emotionally part of the building.",
+    "bgadv.master_result.text": "He fixes the leak in eleven minutes using your valve, two washers from his pocket, and a tool that appears handmade from former Yugoslavia. He tells you the entire installation is wrong. It will now outlive you.",
+    "bgadv.master_result.to_village": "Continue with your completely ordinary day",
+    "bgadv.master_time.accept_monday": "Accept Monday as a philosophy rather than a date",
+    "bgadv.master_time.ask_which_monday": "Ask which Monday",
+    "bgadv.master_time.text": "He says Monday. You point out that today is Monday. He pauses, not because he is confused, but because you have introduced an irrelevant level of precision.",
+    "bgadv.municipality.ask_which_document": "Ask which document is actually required",
+    "bgadv.municipality.call_connection": "Call the person who knows the person",
+    "bgadv.municipality.call_connection_fail": "Your social graph does not yet reach this department.",
+    "bgadv.municipality.present_folder": "Present the folder before anyone can invent another requirement",
+    "bgadv.municipality.present_folder_fail": "Your folder lacks the minimum density required to intimidate an institution.",
+    "bgadv.municipality.text": "ACT V — THE FINAL DOCUMENT\n\nAt 15:42 you reach the municipality. Room 12 requires one document to confirm a fact already visible in three government databases. A note on Room 12 says Room 12 has moved to Room 7. Room 7 says Room 12 has not moved.",
+    "bgadv.parking.ask_whose_chair": "Ask whose chair it is",
+    "bgadv.parking.move_chair": "Move the chair. It is a chair",
+    "bgadv.parking.respect_chair": "Respect the chair as a legitimate municipal institution",
+    "bgadv.parking.text": "ACT I — THE CHAIR OF SOVEREIGNTY\n\nYou find the last open parking space. It is occupied by a plastic chair. The chair has no licence plate, no owner, and considerably more territorial authority than your car.\n\nThree balconies are watching.",
+    "bgadv.parking_council.apologize_to_chair": "Return the chair and apologize for the diplomatic incident",
+    "bgadv.parking_council.cite_law": "Explain public-road parking law to the assembled constitutional court",
+    "bgadv.parking_council.text": "Before the chair touches the pavement, a man appears from a shop that was visibly closed. He explains that his cousin will be back in five minutes. A woman from the second floor says the cousin has been in Germany since 2019. Neither statement weakens the claim.",
+    "bgadv.parking_result_bad.text": "You park successfully. Nobody blocks you in. This is much worse: they leave exactly eleven centimetres at each bumper, proving both intent and technical competence.",
+    "bgadv.parking_result_bad.to_courier_bad": "Continue with your completely ordinary day",
+    "bgadv.parking_result_good.text": "The chair's custodian approves your restraint and reveals a legal space behind the pharmacy. You have not parked faster, but you have acquired a person who knows a person.",
+    "bgadv.parking_result_good.to_courier_good": "Continue with your completely ordinary day",
+    "bgadv.parking_witnesses.text": "The balconies confer. Bulgarian oral law enters deliberation.",
+    "bgadv.pen_shop.borrow_pen": "Borrow a pen from the next person in line and become temporary family",
+    "bgadv.pen_shop.buy_pen": "Buy three blue pens so this cannot happen again",
+    "bgadv.pen_shop.text": "The nearest shop sells pens, lottery tickets, coffee, phone cases, icons, batteries, and one tomato. The blue pens are behind the counter because apparently they are controlled equipment.",
+    "bgadv.prologue.begin_local": "Call one person who knows one person before anything has happened",
+    "bgadv.prologue.begin_optimistic": "Begin with confidence. Surely five errands are possible in one day",
+    "bgadv.prologue.begin_prepared": "Bring a folder of documents and the sacred blue pen",
+    "bgadv.prologue.text": "BULGARIAN ADVENTURES: EVERYTHING IS FINE\n\nIt is 08:07. Your objectives are modest: park the car, receive a parcel, let a майстор fix one pipe, visit the village, and submit one document before the municipality closes.\n\nThe municipality closes at 17:00, except when it does not. You have brought optimism, which was your first mistake.",
+    "bgadv.var_absurdity.label": "Documented Absurdity",
+    "bgadv.var_connections.label": "People Who Know A Person",
+    "bgadv.var_documents.label": "Potentially Correct Documents",
+    "bgadv.var_patience.label": "Patience Remaining",
+    "bgadv.var_rakia.label": "One Rakia",
+    "bgadv.village.ask_source": "Ask how she knows",
+    "bgadv.village.deny_news": "Deny everything and attempt to preserve the concept of privacy",
+    "bgadv.village.offer_coffee": "Make coffee and request full access to the intelligence network",
+    "bgadv.village.text": "ACT IV — THE VILLAGE API\n\nYou arrive at the village. Before you close the gate, a neighbour asks whether the pipe is fixed, why the courier was late, and whether the man from the city is still angry about the chair.\n\nYou told none of this to anyone here.",
+    "bgadv.village_feast.define_one": "Ask how large ‘one’ is",
+    "bgadv.village_feast.one_rakia": "Accept one rakia in the ordinary non-Euclidean sense",
+    "bgadv.village_feast.refuse_rakia": "Refuse politely and trigger a medical inquiry",
+    "bgadv.village_feast.text": "You stand to leave. Food appears. Refusing food would imply illness, hostility, or foreign influence. A bottle without a label is placed beside your plate. Your host calls it ‘one rakia,’ a unit with no standardized upper bound."
+  }
+}

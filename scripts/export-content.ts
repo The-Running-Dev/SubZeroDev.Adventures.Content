@@ -49,6 +49,10 @@ import {
   bulgariaEnterpriseMigration,
 } from "../src/campaigns/bulgaria-enterprise.js";
 import {
+  buildBulgarianAdventuresCampaign,
+  bulgarianAdventuresCatalog,
+} from "../src/campaigns/bulgarian-adventures.js";
+import {
   buildSakiQuestCampaign,
   sakiQuestCatalog,
 } from "../src/campaigns/saki-quest-for-redemption.js";
@@ -119,6 +123,10 @@ const entries: readonly Entry[] = [
     build: buildBulgariaEnterpriseCampaign,
     catalog: bulgariaEnterpriseCatalog,
     migration: bulgariaEnterpriseMigration,
+  },
+  {
+    build: buildBulgarianAdventuresCampaign,
+    catalog: bulgarianAdventuresCatalog,
   },
   { build: buildSakiQuestCampaign, catalog: sakiQuestCatalog },
 ];
