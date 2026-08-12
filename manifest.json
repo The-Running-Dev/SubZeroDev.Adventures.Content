@@ -60,7 +60,13 @@
       "id": "saki-quest-for-redemption",
       "version": "1.0.0",
       "digest": "sha-256:9b8e4b0cd93e421fd995232e52f36a408725e4a4194d6bc1a18f33b38eac46a3"
+    },
+    {
+      "file": "getting-started.json",
+      "id": "getting-started",
+      "version": "1.0.0",
+      "digest": "sha-256:079f3dca7b19aae737171a9650bba82610f840a30584019a87d73fa5f4d77788"
     }
   ],
-  "resolution": "sha-256:ab6b72c878c7abf00c301234358bcc17037e37ac1d2aac7ec04ef0363c2dfa98"
+  "resolution": "sha-256:804de9040d007a02e23fc884a5028a8f0cac232e82d3a80e8e4e0b5271163000"
 }

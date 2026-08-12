@@ -1,0 +1,502 @@
+{
+  "formatVersion": 2,
+  "catalog": {
+    "title": "Getting Started: What The Fuck Is This?",
+    "description": "An interactive orientation that explains Adventures by making you play it. Skipping is a valid choice. So is not skipping.",
+    "duration": "~4 min (or ~4 seconds if you skip)",
+    "contentNotice": "Self-aware nonsense. Occasional profanity. No real danger.",
+    "featured": true
+  },
+  "campaign": {
+    "id": "getting-started",
+    "version": "1.0.0",
+    "titleKey": "gs.campaign.title",
+    "kindId": "story-graph",
+    "content": {
+      "descriptionKey": "gs.campaign.description",
+      "variables": {
+        "started": {
+          "type": "bool",
+          "initial": false
+        },
+        "first_take": {
+          "type": "enum",
+          "initial": "powerful",
+          "values": [
+            "powerful",
+            "complicated"
+          ],
+          "visible": true,
+          "labelKey": "gs.var_first_take.label"
+        }
+      },
+      "nodes": {
+        "start": {
+          "id": "start",
+          "kind": "choice",
+          "textKey": "gs.start.text",
+          "choices": [
+            {
+              "id": "explain",
+              "effects": [
+                {
+                  "op": "set",
+                  "var": "started",
+                  "value": true
+                }
+              ],
+              "goto": "explain_engine",
+              "labelKey": "gs.start.explain"
+            },
+            {
+              "id": "skip",
+              "goto": "skip_ending",
+              "labelKey": "gs.start.skip"
+            }
+          ]
+        },
+        "explain_engine": {
+          "id": "explain_engine",
+          "kind": "choice",
+          "textKey": "gs.explain_engine.text",
+          "choices": [
+            {
+              "id": "continue",
+              "goto": "branching_demo",
+              "labelKey": "gs.explain_engine.continue"
+            },
+            {
+              "id": "skip",
+              "goto": "skip_ending",
+              "labelKey": "gs.explain_engine.skip"
+            }
+          ]
+        },
+        "branching_demo": {
+          "id": "branching_demo",
+          "kind": "choice",
+          "textKey": "gs.branching_demo.text",
+          "choices": [
+            {
+              "id": "powerful",
+              "effects": [
+                {
+                  "op": "set",
+                  "var": "first_take",
+                  "value": "powerful"
+                }
+              ],
+              "goto": "branch_converge",
+              "labelKey": "gs.branching_demo.powerful"
+            },
+            {
+              "id": "complicated",
+              "effects": [
+                {
+                  "op": "set",
+                  "var": "first_take",
+                  "value": "complicated"
+                }
+              ],
+              "goto": "branch_converge",
+              "labelKey": "gs.branching_demo.complicated"
+            },
+            {
+              "id": "skip",
+              "goto": "skip_ending",
+              "labelKey": "gs.branching_demo.skip"
+            }
+          ]
+        },
+        "branch_converge": {
+          "id": "branch_converge",
+          "kind": "choice",
+          "textKey": "gs.branch_converge.text",
+          "choices": [
+            {
+              "id": "continue",
+              "goto": "node_kinds",
+              "labelKey": "gs.branch_converge.continue"
+            },
+            {
+              "id": "skip",
+              "goto": "skip_ending",
+              "labelKey": "gs.branch_converge.skip"
+            }
+          ]
+        },
+        "node_kinds": {
+          "id": "node_kinds",
+          "kind": "auto",
+          "textKey": "gs.node_kinds.text",
+          "goto": "achievements_intro"
+        },
+        "achievements_intro": {
+          "id": "achievements_intro",
+          "kind": "choice",
+          "textKey": "gs.achievements_intro.text",
+          "choices": [
+            {
+              "id": "what",
+              "goto": "achievements_explained",
+              "labelKey": "gs.achievements_intro.what"
+            },
+            {
+              "id": "skip",
+              "goto": "skip_ending",
+              "labelKey": "gs.achievements_intro.skip"
+            }
+          ]
+        },
+        "achievements_explained": {
+          "id": "achievements_explained",
+          "kind": "choice",
+          "textKey": "gs.achievements_explained.text",
+          "choices": [
+            {
+              "id": "continue",
+              "goto": "content_composition_intro",
+              "labelKey": "gs.achievements_explained.continue"
+            },
+            {
+              "id": "skip",
+              "goto": "skip_ending",
+              "labelKey": "gs.achievements_explained.skip"
+            }
+          ]
+        },
+        "content_composition_intro": {
+          "id": "content_composition_intro",
+          "kind": "choice",
+          "textKey": "gs.content_composition_intro.text",
+          "choices": [
+            {
+              "id": "shrug",
+              "goto": "campaign_shapes",
+              "labelKey": "gs.content_composition_intro.shrug"
+            },
+            {
+              "id": "skip",
+              "goto": "skip_ending",
+              "labelKey": "gs.content_composition_intro.skip"
+            }
+          ]
+        },
+        "campaign_shapes": {
+          "id": "campaign_shapes",
+          "kind": "choice",
+          "textKey": "gs.campaign_shapes.text",
+          "choices": [
+            {
+              "id": "example",
+              "goto": "tv_support_2",
+              "labelKey": "gs.campaign_shapes.example"
+            },
+            {
+              "id": "skip",
+              "goto": "skip_ending",
+              "labelKey": "gs.campaign_shapes.skip"
+            }
+          ]
+        },
+        "tv_support_2": {
+          "id": "tv_support_2",
+          "kind": "choice",
+          "textKey": "gs.tv_support_2.text",
+          "choices": [
+            {
+              "id": "yes",
+              "goto": "tv_support_3",
+              "labelKey": "gs.tv_support_2.yes"
+            },
+            {
+              "id": "no",
+              "goto": "tv_support_4",
+              "labelKey": "gs.tv_support_2.no"
+            }
+          ]
+        },
+        "tv_support_3": {
+          "id": "tv_support_3",
+          "kind": "choice",
+          "textKey": "gs.tv_support_3.text",
+          "choices": [
+            {
+              "id": "yes",
+              "goto": "tv_support_5",
+              "labelKey": "gs.tv_support_3.yes"
+            },
+            {
+              "id": "no",
+              "goto": "tv_support_6",
+              "labelKey": "gs.tv_support_3.no"
+            }
+          ]
+        },
+        "tv_support_4": {
+          "id": "tv_support_4",
+          "kind": "choice",
+          "textKey": "gs.tv_support_4.text",
+          "choices": [
+            {
+              "id": "continue",
+              "goto": "tv_support_end_ok",
+              "labelKey": "gs.tv_support_4.continue"
+            }
+          ]
+        },
+        "tv_support_5": {
+          "id": "tv_support_5",
+          "kind": "choice",
+          "textKey": "gs.tv_support_5.text",
+          "choices": [
+            {
+              "id": "continue",
+              "goto": "tv_support_end_ok",
+              "labelKey": "gs.tv_support_5.continue"
+            }
+          ]
+        },
+        "tv_support_6": {
+          "id": "tv_support_6",
+          "kind": "choice",
+          "textKey": "gs.tv_support_6.text",
+          "choices": [
+            {
+              "id": "continue",
+              "goto": "tv_support_end_maybe",
+              "labelKey": "gs.tv_support_6.continue"
+            }
+          ]
+        },
+        "tv_support_end_ok": {
+          "id": "tv_support_end_ok",
+          "kind": "choice",
+          "textKey": "gs.tv_support_end_ok.text",
+          "choices": [
+            {
+              "id": "continue",
+              "goto": "self_hosting_intro",
+              "labelKey": "gs.tv_support_end_ok.continue"
+            },
+            {
+              "id": "skip",
+              "goto": "skip_ending",
+              "labelKey": "gs.tv_support_end_ok.skip"
+            }
+          ]
+        },
+        "tv_support_end_maybe": {
+          "id": "tv_support_end_maybe",
+          "kind": "choice",
+          "textKey": "gs.tv_support_end_maybe.text",
+          "choices": [
+            {
+              "id": "call_ben",
+              "goto": "escalation_ending",
+              "labelKey": "gs.tv_support_end_maybe.call_ben"
+            },
+            {
+              "id": "continue",
+              "goto": "self_hosting_intro",
+              "labelKey": "gs.tv_support_end_maybe.continue"
+            }
+          ]
+        },
+        "escalation_ending": {
+          "id": "escalation_ending",
+          "kind": "ending",
+          "textKey": "gs.escalation_ending.text",
+          "endingId": "escalation",
+          "outcome": "neutral"
+        },
+        "self_hosting_intro": {
+          "id": "self_hosting_intro",
+          "kind": "choice",
+          "textKey": "gs.self_hosting_intro.text",
+          "choices": [
+            {
+              "id": "continue",
+              "goto": "closing",
+              "labelKey": "gs.self_hosting_intro.continue"
+            },
+            {
+              "id": "skip",
+              "goto": "skip_ending",
+              "labelKey": "gs.self_hosting_intro.skip"
+            }
+          ]
+        },
+        "closing": {
+          "id": "closing",
+          "kind": "choice",
+          "textKey": "gs.closing.text",
+          "choices": [
+            {
+              "id": "finish",
+              "goto": "complete_ending",
+              "labelKey": "gs.closing.finish"
+            }
+          ]
+        },
+        "complete_ending": {
+          "id": "complete_ending",
+          "kind": "ending",
+          "textKey": "gs.complete_ending.text",
+          "endingId": "complete",
+          "outcome": "win"
+        },
+        "skip_ending": {
+          "id": "skip_ending",
+          "kind": "ending",
+          "textKey": "gs.skip_ending.text",
+          "endingId": "skip",
+          "outcome": "neutral"
+        }
+      },
+      "startNodeId": "start",
+      "achievements": [
+        {
+          "id": "never_reads_manual",
+          "hidden": false,
+          "condition": {
+            "all": [
+              {
+                "field": "ending",
+                "operator": "equals",
+                "value": "skip"
+              },
+              {
+                "field": "var.started",
+                "operator": "equals",
+                "value": false
+              }
+            ]
+          },
+          "nameKey": "gs.achievement_never.name",
+          "descriptionKey": "gs.achievement_never.description"
+        },
+        {
+          "id": "tried_reading_manual",
+          "hidden": false,
+          "condition": {
+            "all": [
+              {
+                "field": "ending",
+                "operator": "equals",
+                "value": "skip"
+              },
+              {
+                "field": "var.started",
+                "operator": "equals",
+                "value": true
+              }
+            ]
+          },
+          "nameKey": "gs.achievement_tried.name",
+          "descriptionKey": "gs.achievement_tried.description"
+        },
+        {
+          "id": "actually_reads_manual",
+          "hidden": false,
+          "condition": {
+            "field": "ending",
+            "operator": "equals",
+            "value": "complete"
+          },
+          "nameKey": "gs.achievement_actually.name",
+          "descriptionKey": "gs.achievement_actually.description"
+        },
+        {
+          "id": "achievement_unlocked",
+          "hidden": false,
+          "condition": {
+            "field": "visited.achievements_explained",
+            "operator": "greater_or_equal",
+            "value": 1
+          },
+          "nameKey": "gs.achievement_meta.name",
+          "descriptionKey": "gs.achievement_meta.description"
+        },
+        {
+          "id": "the_escalation_path",
+          "hidden": true,
+          "condition": {
+            "field": "ending",
+            "operator": "equals",
+            "value": "escalation"
+          },
+          "nameKey": "gs.achievement_escalation.name",
+          "descriptionKey": "gs.achievement_escalation.description"
+        }
+      ]
+    }
+  },
+  "strings": {
+    "gs.achievement_actually.description": "We genuinely did not expect anyone to get this far.",
+    "gs.achievement_actually.name": "Actually Reads the Manual",
+    "gs.achievement_escalation.description": "The graph has exhausted its usefulness. So has Ben.",
+    "gs.achievement_escalation.name": "The Escalation Path",
+    "gs.achievement_meta.description": "You learned that achievements exist by receiving an achievement for learning that achievements exist.",
+    "gs.achievement_meta.name": "Achievement Unlocked: Achievement Unlocked",
+    "gs.achievement_never.description": "Skipped the tutorial. You'll figure it out. Probably.",
+    "gs.achievement_never.name": "Never Reads the Manual",
+    "gs.achievement_tried.description": "You made an effort. That's more concerning, actually.",
+    "gs.achievement_tried.name": "Tried Reading the Manual",
+    "gs.achievements_explained.continue": "Neat.",
+    "gs.achievements_explained.skip": "Skip Intro...",
+    "gs.achievements_explained.text": "Achievement Unlocked: Achievement Unlocked.\n\nYou learned that achievements exist by receiving an achievement for learning that achievements exist.",
+    "gs.achievements_intro.skip": "Skip Intro...",
+    "gs.achievements_intro.text": "Getting to this line took one extra step you didn't click anything for — a node with no choices, that just forwards you to the next one. If you didn't notice, that's correct. That's what those are for.\n\nSpeaking of things that happen without a form to fill out: the engine also tracks achievements — unlocked mid-story, the moment some condition becomes true, whether or not anyone announces it.\n\nFor example. You're satisfying one right now.",
+    "gs.achievements_intro.what": "Wait, what did I just unlock?",
+    "gs.branch_converge.continue": "Continue.",
+    "gs.branch_converge.skip": "Skip Intro...",
+    "gs.branch_converge.text": "Both lead here.\n\nSee? Choices.\n\n(You said this sounds {first_take}. We'll remember that — state persists across the whole run, not just the one choice you made it in.)",
+    "gs.branching_demo.complicated": "This sounds unnecessarily complicated.",
+    "gs.branching_demo.powerful": "This sounds incredibly powerful.",
+    "gs.branching_demo.skip": "Skip Intro...",
+    "gs.branching_demo.text": "The engine lets a story branch based on what you pick. Here's a branch. It doesn't matter which way you go.",
+    "gs.campaign.description": "An interactive orientation. It explains Adventures by making you use Adventures. Skipping is a valid choice. So is not skipping.",
+    "gs.campaign.title": "Getting Started",
+    "gs.campaign_shapes.example": "Show me the family tech support one.",
+    "gs.campaign_shapes.skip": "Skip Intro...",
+    "gs.campaign_shapes.text": "Here's the part people miss: a campaign isn't just \"choose your own adventure.\" It's a decision graph with content, state, branching, persistence, and achievements. That shape can hold a comedy. It can also hold a game, a how-to guide, a troubleshooting flow, an internal runbook, onboarding for literally anything, or family tech support.",
+    "gs.closing.finish": "See the shelf.",
+    "gs.closing.text": "That's Adventures: a graph engine wearing a trenchcoat.\n\nIn the last few minutes you've used branching, persistent state, an achievement, and a node kind nobody named out loud. There's nothing left to explain. Only things left to play.",
+    "gs.complete_ending.text": "Tutorial complete.\n\nAchievement unlocked: Actually Reads the Manual. We genuinely did not expect anyone to get this far.\n\nGo pick a real one.",
+    "gs.content_composition_intro.shrug": "—sure. Moving on.",
+    "gs.content_composition_intro.skip": "Skip Intro...",
+    "gs.content_composition_intro.text": "Not every campaign is a sealed island, either. Content can be composed — extra nodes and choices, injected onto an existing graph from a separate file, without anyone touching the original.\n\nCampaigns aren't necessarily isolated. Other content can—",
+    "gs.escalation_ending.text": "Ben does not pick up.\n\nThe graph has exhausted its usefulness. So has Ben.",
+    "gs.explain_engine.continue": "Keep going.",
+    "gs.explain_engine.skip": "Skip Intro...",
+    "gs.explain_engine.text": "Adventures is a small platform for playing — and building — interactive stories called campaigns.\n\nA campaign is a graph: nodes with text, choices that branch, state that persists across choices, and achievements that fire when you do something notable. No account required to read it.\n\nThis conversation? Also a campaign. We are using the platform to explain the platform.",
+    "gs.node_kinds.text": "(unshown — a bare `auto` pass-through node; see achievements_intro's opening line)",
+    "gs.self_hosting_intro.continue": "Noted.",
+    "gs.self_hosting_intro.skip": "Skip Intro...",
+    "gs.self_hosting_intro.text": "Longer term, campaigns won't only be ours. The plan is for you to author your own graphs and decide how they're exposed — public, private, shared by a link, or fully self-hosted. Some of that exists today. Some of it doesn't yet. We're telling you which is which instead of pretending otherwise.",
+    "gs.skip_ending.text": "Skipped.\n\nNo judgment. Well — a little.",
+    "gs.start.explain": "What the fuck is this?",
+    "gs.start.skip": "Skip Intro...",
+    "gs.start.text": "Welcome to SubZeroDev.Adventures.\n\nThis probably requires an explanation.",
+    "gs.tv_support_2.no": "No.",
+    "gs.tv_support_2.text": "Case file: \"My television doesn't work.\"\n\nIs it turned on?",
+    "gs.tv_support_2.yes": "Yes.",
+    "gs.tv_support_3.no": "No.",
+    "gs.tv_support_3.text": "Does it say NO SIGNAL?",
+    "gs.tv_support_3.yes": "Yes.",
+    "gs.tv_support_4.continue": "...Oh.",
+    "gs.tv_support_4.text": "Turn it on.",
+    "gs.tv_support_5.continue": "Continue.",
+    "gs.tv_support_5.text": "Check the input source. It's HDMI 2. It's always HDMI 2.",
+    "gs.tv_support_6.continue": "Continue.",
+    "gs.tv_support_6.text": "Unplug it, count to ten, plug it back in. This resolves sixty percent of problems, one hundred percent of the time.",
+    "gs.tv_support_end_maybe.call_ben": "Call Ben.",
+    "gs.tv_support_end_maybe.continue": "Give up gracefully and continue.",
+    "gs.tv_support_end_maybe.text": "Nothing worked.",
+    "gs.tv_support_end_ok.continue": "Good. Continue.",
+    "gs.tv_support_end_ok.skip": "Skip Intro...",
+    "gs.tv_support_end_ok.text": "That's the whole runbook. It's not funnier than your actual runbooks. That's kind of the point.",
+    "gs.var_first_take.label": "First take"
+  }
+}

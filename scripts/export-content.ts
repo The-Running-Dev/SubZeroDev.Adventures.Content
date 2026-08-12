@@ -57,6 +57,10 @@ import {
   sakiQuestCatalog,
 } from "../src/campaigns/saki-quest-for-redemption.js";
 import {
+  buildGettingStartedCampaign,
+  gettingStartedCatalog,
+} from "../src/campaigns/getting-started.js";
+import {
   toPortable,
   type PortableCampaign,
   type PortableManifestEntry,
@@ -129,6 +133,7 @@ const entries: readonly Entry[] = [
     catalog: bulgarianAdventuresCatalog,
   },
   { build: buildSakiQuestCampaign, catalog: sakiQuestCatalog },
+  { build: buildGettingStartedCampaign, catalog: gettingStartedCatalog },
 ];
 
 /** Builds every entry first, writes nothing until every build has succeeded — the abort
