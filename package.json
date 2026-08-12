@@ -7,8 +7,8 @@
   "scripts": {
     "setup": "npm --prefix engine/src/engine ci && npm --prefix engine/src/engine run build && npm --prefix contracts ci && npm --prefix contracts run build",
     "export:content": "tsx scripts/export-content.ts",
-    "format": "prettier --write src scripts/export-content.ts package.json package-lock.json *.json tsconfig.json vitest.config.ts",
-    "format:check": "prettier --check src scripts/export-content.ts package.json package-lock.json *.json tsconfig.json vitest.config.ts",
+    "format": "prettier --write src scripts/export-content.ts package.json package-lock.json tsconfig.json vitest.config.ts",
+    "format:check": "prettier --check src scripts/export-content.ts package.json package-lock.json tsconfig.json vitest.config.ts",
     "lint": "oxlint src scripts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
