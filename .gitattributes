@@ -1,0 +1,5 @@
+# UTF-8, LF endings throughout (AGENTS.md, House conventions). Without this, a Windows
+# checkout with core.autocrlf=true rewrites every text file to CRLF on checkout, which then
+# fails `npm run format:check` (Prettier's default endOfLine is "lf") regardless of what the
+# committed blob actually contains.
+* text=auto eol=lf

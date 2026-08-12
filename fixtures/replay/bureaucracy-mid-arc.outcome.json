@@ -1,0 +1,22 @@
+{
+  "finalStatus": "active",
+  "acceptedActions": 2,
+  "decisions": [
+    {
+      "index": 0,
+      "seq": 0,
+      "actionId": "wait",
+      "accepted": true
+    },
+    {
+      "index": 1,
+      "seq": 1,
+      "actionId": "registry_route_listen",
+      "accepted": true
+    }
+  ],
+  "achievements": ["found_registry_route_event_1a"],
+  "terminal": {
+    "endingId": null
+  }
+}
