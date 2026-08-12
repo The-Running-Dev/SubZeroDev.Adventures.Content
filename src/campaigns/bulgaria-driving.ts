@@ -6,7 +6,7 @@ import {
   createAdventureSource,
   migrateV1AdventureState,
   type AdventureConfig,
-} from "./adventure-builder.js";
+} from "@the-running-dev/game-engine/authoring";
 import type {
   PortableCatalog,
   PortableMigration,

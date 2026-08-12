@@ -15,7 +15,7 @@
     "validate:content": "node scripts/validate-content.mjs",
     "build:site": "node scripts/build-site.mjs",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run test && npm run export:content && npm run check:clean && npm run validate:content && npm run build:site",
-    "check:clean": "git diff --exit-code -- \":(glob)*.json\" \":(exclude)package.json\" \":(exclude)package-lock.json\""
+    "check:clean": "node scripts/check-clean.mjs"
   },
   "engines": {
     "node": ">=24"

@@ -1,3 +1,5 @@
+import { readFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import {
   buildValidatedContentRegistry,
@@ -5,7 +7,10 @@ import {
   storyGraphKind,
   type KindRegistry,
 } from "@the-running-dev/game-engine";
-import { toPortable } from "@the-running-dev/game-engine/authoring";
+import {
+  digestPortableCampaign,
+  toPortable,
+} from "@the-running-dev/game-engine/authoring";
 import {
   buildWhatWouldLuciferDoCampaign,
   whatWouldLuciferDoCatalog,
@@ -89,37 +94,72 @@ const entries = [
   [buildSakiQuestCampaign, sakiQuestCatalog],
 ] as const;
 
+const kinds = { "story-graph": storyGraphKind } as unknown as KindRegistry;
+
+interface StoryGraphNode {
+  readonly kind: string;
+  readonly goto?: string;
+  readonly choices?: readonly { readonly goto: string }[];
+  readonly transitions?: readonly { readonly goto: string }[];
+}
+
+interface StoryGraphContent {
+  readonly startNodeId: string;
+  readonly nodes: Record<string, StoryGraphNode>;
+}
+
+/** Walks every `goto` edge (choice/random/auto) from `startNodeId` and returns the set of
+ *  `ending`-kind node ids actually reachable — a stronger claim than counting ending nodes
+ *  in the map, which says nothing about whether the graph actually connects to them. */
+function reachableEndingIds(content: StoryGraphContent): Set<string> {
+  const visited = new Set<string>();
+  const endings = new Set<string>();
+  const stack = [content.startNodeId];
+  while (stack.length > 0) {
+    const nodeId = stack.pop();
+    if (nodeId === undefined || visited.has(nodeId)) continue;
+    visited.add(nodeId);
+    const node = content.nodes[nodeId];
+    if (node === undefined) continue;
+    if (node.kind === "ending") {
+      endings.add(nodeId);
+      continue;
+    }
+    const next = [
+      ...(node.goto !== undefined ? [node.goto] : []),
+      ...(node.choices?.map((c) => c.goto) ?? []),
+      ...(node.transitions?.map((t) => t.goto) ?? []),
+    ];
+    for (const target of next) stack.push(target);
+  }
+  return endings;
+}
+
 describe("published campaign sources", () => {
   it("builds and validates all nine campaigns", () => {
-    const built = entries.map(([build]) => build());
-    expect(
-      built.every((result) => result.ok && result.value !== undefined),
-    ).toBe(true);
-    const registry = buildValidatedContentRegistry(
-      built.map((result) => result.value!),
-      { "story-graph": storyGraphKind } as unknown as KindRegistry,
+    const results = entries.map(([build]) => build());
+    const built = results.flatMap((result) =>
+      result.ok && result.value !== undefined ? [result.value] : [],
     );
+    expect(built.length).toBe(entries.length);
+
+    const registry = buildValidatedContentRegistry(built, kinds);
     expect(registry.ok).toBe(true);
   });
 
-  it("keeps the expanded Bulgaria catalog at 75 endings and portable-hydrates it", () => {
+  it("keeps the expanded Bulgaria catalog at 75 reachable endings and portable-hydrates it", () => {
     const bulgaria = entries.slice(3, 8);
-    const endingCount = bulgaria.reduce((total, [build]) => {
+    const reachableCount = bulgaria.reduce((total, [build]) => {
       const result = build();
       if (!result.ok || result.value === undefined)
         throw new Error("campaign build failed");
       return (
         total +
-        Object.values(
-          (
-            result.value.campaign.content as {
-              nodes: Record<string, { kind: string }>;
-            }
-          ).nodes,
-        ).filter((node) => node.kind === "ending").length
+        reachableEndingIds(result.value.campaign.content as StoryGraphContent)
+          .size
       );
     }, 0);
-    expect(endingCount).toBe(75);
+    expect(reachableCount).toBe(75);
     const result = buildBulgariaBureaucracyCampaign();
     if (!result.ok || result.value === undefined)
       throw new Error("campaign build failed");
@@ -132,5 +172,71 @@ describe("published campaign sources", () => {
         ),
       ).built.campaign.id,
     ).toBe("bulgaria-bureaucracy");
+  });
+
+  it("migrates a 1.0.0 save through the published portable document", () => {
+    const built = buildBulgariaBureaucracyCampaign();
+    if (!built.ok || built.value === undefined)
+      throw new Error("campaign build failed");
+
+    const portable = toPortable(
+      built.value,
+      bulgariaBureaucracyCatalog,
+      bulgariaBureaucracyMigration,
+    );
+    const hydrated = fromPortable(portable);
+    if (hydrated.built.campaign.migrateState === undefined) {
+      throw new Error("expected the hydrated campaign to carry migrateState");
+    }
+
+    // "clerk_review" only existed pre-expansion (see bulgariaBureaucracyMigration's
+    // nodeMap) and remaps to "registry_route_event_1" in the published 2.0.0 graph.
+    const v1State = {
+      currentNodeId: "clerk_review",
+      variables: {},
+      visitedCounts: {},
+    };
+    const migrated = hydrated.built.campaign.migrateState(v1State, "1.0.0");
+
+    expect(migrated.ok).toBe(true);
+    expect((migrated.value as { currentNodeId: string }).currentNodeId).toBe(
+      "registry_route_event_1",
+    );
+  });
+
+  it("keeps the four non-Bulgaria campaigns' published digests unchanged", async () => {
+    const repoRoot = fileURLToPath(new URL("../../", import.meta.url));
+    const manifest = JSON.parse(
+      await readFile(`${repoRoot}manifest.json`, "utf8"),
+    ) as { campaigns: readonly { id: string; digest: string }[] };
+    const manifestDigest = (id: string): string => {
+      const entry = manifest.campaigns.find((c) => c.id === id);
+      if (entry === undefined)
+        throw new Error(`manifest has no entry for "${id}"`);
+      return entry.digest;
+    };
+
+    const unaffected: readonly (readonly [() => unknown, ...unknown[]])[] = [
+      entries[0],
+      entries[1],
+      entries[2],
+      entries[8],
+    ];
+    for (const [build, catalog, migration] of unaffected) {
+      const result = build() as {
+        ok: boolean;
+        value?: { campaign: { id: string } };
+      };
+      if (!result.ok || result.value === undefined)
+        throw new Error("campaign build failed");
+      const portable = toPortable(
+        result.value as Parameters<typeof toPortable>[0],
+        catalog as Parameters<typeof toPortable>[1],
+        migration as Parameters<typeof toPortable>[2],
+      );
+      expect(digestPortableCampaign(portable)).toBe(
+        manifestDigest(result.value.campaign.id),
+      );
+    }
   });
 });

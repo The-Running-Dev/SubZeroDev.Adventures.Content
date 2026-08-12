@@ -17,7 +17,7 @@ import {
   type NodeSource,
   type StoryGraphCampaignSource,
 } from "@the-running-dev/game-engine/authoring";
-import { migrateV1AdventureState } from "./adventure-builder.js";
+import { migrateV1AdventureState } from "@the-running-dev/game-engine/authoring";
 import type {
   PortableCatalog,
   PortableMigration,

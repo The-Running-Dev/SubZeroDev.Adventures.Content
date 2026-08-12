@@ -17,7 +17,7 @@ import {
   buildAdventureCampaign,
   createAdventureSource,
   type AdventureConfig,
-} from "./adventure-builder.js";
+} from "@the-running-dev/game-engine/authoring";
 import { BULGARIA_BUREAUCRACY_CAMPAIGN_ID } from "./bulgaria-bureaucracy.js";
 
 const configBG: AdventureConfig = {
