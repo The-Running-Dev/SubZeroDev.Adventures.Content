@@ -51,6 +51,10 @@ import {
   bulgariaEnterpriseMigration,
 } from "./bulgaria-enterprise.js";
 import {
+  buildBulgarianAdventuresCampaign,
+  bulgarianAdventuresCatalog,
+} from "./bulgarian-adventures.js";
+import {
   buildSakiQuestCampaign,
   sakiQuestCatalog,
 } from "./saki-quest-for-redemption.js";
@@ -91,6 +95,7 @@ const entries = [
     bulgariaEnterpriseCatalog,
     bulgariaEnterpriseMigration,
   ],
+  [buildBulgarianAdventuresCampaign, bulgarianAdventuresCatalog],
   [buildSakiQuestCampaign, sakiQuestCatalog],
 ] as const;
 
@@ -147,10 +152,13 @@ function builtCampaignId(result: {
   return result.value.campaign.id;
 }
 
+/** The trailing hyphen is load-bearing: "bulgarian-adventures" shares the first eight
+ *  characters with this prefix but is not one of the five route-shaped Bulgaria campaigns,
+ *  and must not be swept into their 75-reachable-endings assertion. */
 const isBulgariaCampaign = (id: string): boolean => id.startsWith("bulgaria-");
 
 describe("published campaign sources", () => {
-  it("builds and validates all nine campaigns", () => {
+  it("builds and validates all ten campaigns", () => {
     const results = entries.map(([build]) => build());
     const built = results.flatMap((result) =>
       result.ok && result.value !== undefined ? [result.value] : [],
@@ -221,7 +229,7 @@ describe("published campaign sources", () => {
     );
   });
 
-  it("keeps the four non-Bulgaria campaigns' published digests unchanged", async () => {
+  it("keeps the five non-Bulgaria campaigns' published digests unchanged", async () => {
     const repoRoot = fileURLToPath(new URL("../../", import.meta.url));
     const manifest = JSON.parse(
       await readFile(`${repoRoot}manifest.json`, "utf8"),
@@ -236,7 +244,7 @@ describe("published campaign sources", () => {
     const unaffected = entries.filter(
       ([build]) => !isBulgariaCampaign(builtCampaignId(build())),
     );
-    expect(unaffected.length).toBe(4);
+    expect(unaffected.length).toBe(5);
     for (const [build, catalog, migration] of unaffected) {
       const result = build();
       if (!result.ok || result.value === undefined)
