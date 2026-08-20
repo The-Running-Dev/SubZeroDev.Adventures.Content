@@ -53,6 +53,10 @@ import {
   bulgarianAdventuresCatalog,
 } from "../src/campaigns/bulgarian-adventures.js";
 import {
+  buildBulgarianAdventuresMaximumAbsurdityCampaign,
+  bulgarianAdventuresMaximumAbsurdityCatalog,
+} from "../src/campaigns/bulgarian-adventures-maximum-absurdity.js";
+import {
   buildSakiQuestCampaign,
   sakiQuestCatalog,
 } from "../src/campaigns/saki-quest-for-redemption.js";
@@ -131,6 +135,10 @@ const entries: readonly Entry[] = [
   {
     build: buildBulgarianAdventuresCampaign,
     catalog: bulgarianAdventuresCatalog,
+  },
+  {
+    build: buildBulgarianAdventuresMaximumAbsurdityCampaign,
+    catalog: bulgarianAdventuresMaximumAbsurdityCatalog,
   },
   { build: buildSakiQuestCampaign, catalog: sakiQuestCatalog },
   { build: buildGettingStartedCampaign, catalog: gettingStartedCatalog },
