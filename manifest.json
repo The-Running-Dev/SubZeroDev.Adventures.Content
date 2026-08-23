@@ -56,6 +56,12 @@
       "digest": "sha-256:42cad6ff9c3d54bfb6eb5c8419d5a021c30d75f6b92940f469f513be13244f7a"
     },
     {
+      "file": "bulgarian-adventures-maximum-absurdity.json",
+      "id": "bulgarian-adventures-maximum-absurdity",
+      "version": "1.0.0",
+      "digest": "sha-256:89ba96dfd9a1dc23765fd47a67b476147cdcc12f18870a7ae3388d502aa9616f"
+    },
+    {
       "file": "saki-quest-for-redemption.json",
       "id": "saki-quest-for-redemption",
       "version": "1.0.0",
@@ -68,5 +74,5 @@
       "digest": "sha-256:e94cfb686cb540967edb91b46242f1606fe5e14d53d44305e5cfec76e56d09ec"
     }
   ],
-  "resolution": "sha-256:804de9040d007a02e23fc884a5028a8f0cac232e82d3a80e8e4e0b5271163000"
+  "resolution": "sha-256:fbcebfed841a6476906a79e4db0989d0c5f8081f3f89725dceb57d027dc8958f"
 }
