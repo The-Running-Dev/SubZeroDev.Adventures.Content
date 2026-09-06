@@ -10,10 +10,10 @@
   "campaign": {
     "id": "bulgarian-adventures-maximum-absurdity",
     "version": "1.0.0",
-    "titleKey": "bgadv.campaign.title",
+    "titleKey": "bgadvmax.campaign.title",
     "kindId": "story-graph",
     "content": {
-      "descriptionKey": "bgadv.campaign.description",
+      "descriptionKey": "bgadvmax.campaign.description",
       "variables": {
         "patience": {
           "type": "int",
@@ -21,7 +21,7 @@
           "min": 0,
           "max": 12,
           "visible": true,
-          "labelKey": "bgadv.var.patience"
+          "labelKey": "bgadvmax.var.patience"
         },
         "connections": {
           "type": "int",
@@ -29,7 +29,7 @@
           "min": 0,
           "max": 12,
           "visible": true,
-          "labelKey": "bgadv.var.connections"
+          "labelKey": "bgadvmax.var.connections"
         },
         "absurdity": {
           "type": "int",
@@ -37,7 +37,7 @@
           "min": 0,
           "max": 20,
           "visible": true,
-          "labelKey": "bgadv.var.absurdity"
+          "labelKey": "bgadvmax.var.absurdity"
         },
         "documents": {
           "type": "int",
@@ -45,7 +45,7 @@
           "min": 0,
           "max": 8,
           "visible": true,
-          "labelKey": "bgadv.var.documents"
+          "labelKey": "bgadvmax.var.documents"
         },
         "rakia": {
           "type": "int",
@@ -53,7 +53,7 @@
           "min": 0,
           "max": 6,
           "visible": true,
-          "labelKey": "bgadv.var.rakia"
+          "labelKey": "bgadvmax.var.rakia"
         },
         "chair_respected": {
           "type": "bool",
@@ -80,7 +80,7 @@
         "prologue": {
           "id": "prologue",
           "kind": "choice",
-          "textKey": "bgadv.prologue.text",
+          "textKey": "bgadvmax.prologue.text",
           "choices": [
             {
               "id": "begin_optimistic",
@@ -92,7 +92,7 @@
                 }
               ],
               "goto": "parking",
-              "labelKey": "bgadv.prologue.optimistic"
+              "labelKey": "bgadvmax.prologue.optimistic"
             },
             {
               "id": "begin_prepared",
@@ -109,7 +109,7 @@
                 }
               ],
               "goto": "parking",
-              "labelKey": "bgadv.prologue.prepared"
+              "labelKey": "bgadvmax.prologue.prepared"
             },
             {
               "id": "begin_local",
@@ -121,14 +121,14 @@
                 }
               ],
               "goto": "parking",
-              "labelKey": "bgadv.prologue.local"
+              "labelKey": "bgadvmax.prologue.local"
             }
           ]
         },
         "parking": {
           "id": "parking",
           "kind": "choice",
-          "textKey": "bgadv.parking.text",
+          "textKey": "bgadvmax.parking.text",
           "choices": [
             {
               "id": "respect_chair",
@@ -145,7 +145,7 @@
                 }
               ],
               "goto": "parking_result_good",
-              "labelKey": "bgadv.parking.respect"
+              "labelKey": "bgadvmax.parking.respect"
             },
             {
               "id": "move_chair",
@@ -162,7 +162,7 @@
                 }
               ],
               "goto": "parking_council",
-              "labelKey": "bgadv.parking.move"
+              "labelKey": "bgadvmax.parking.move"
             },
             {
               "id": "ask_whose_chair",
@@ -174,14 +174,14 @@
                 }
               ],
               "goto": "parking_witnesses",
-              "labelKey": "bgadv.parking.ask"
+              "labelKey": "bgadvmax.parking.ask"
             }
           ]
         },
         "parking_council": {
           "id": "parking_council",
           "kind": "choice",
-          "textKey": "bgadv.parking_council.text",
+          "textKey": "bgadvmax.parking_council.text",
           "choices": [
             {
               "id": "cite_law",
@@ -193,7 +193,7 @@
                 }
               ],
               "goto": "parking_result_bad",
-              "labelKey": "bgadv.parking_council.law"
+              "labelKey": "bgadvmax.parking_council.law"
             },
             {
               "id": "apologize_to_chair",
@@ -210,14 +210,14 @@
                 }
               ],
               "goto": "parking_result_good",
-              "labelKey": "bgadv.parking_council.apologize"
+              "labelKey": "bgadvmax.parking_council.apologize"
             }
           ]
         },
         "parking_witnesses": {
           "id": "parking_witnesses",
           "kind": "random",
-          "textKey": "bgadv.parking_witnesses.text",
+          "textKey": "bgadvmax.parking_witnesses.text",
           "transitions": [
             {
               "weight": 1,
@@ -246,31 +246,31 @@
         "parking_result_good": {
           "id": "parking_result_good",
           "kind": "choice",
-          "textKey": "bgadv.parking_result_good.text",
+          "textKey": "bgadvmax.parking_result_good.text",
           "choices": [
             {
               "id": "to_courier_good",
               "goto": "courier",
-              "labelKey": "bgadv.continue"
+              "labelKey": "bgadvmax.continue"
             }
           ]
         },
         "parking_result_bad": {
           "id": "parking_result_bad",
           "kind": "choice",
-          "textKey": "bgadv.parking_result_bad.text",
+          "textKey": "bgadvmax.parking_result_bad.text",
           "choices": [
             {
               "id": "to_courier_bad",
               "goto": "courier",
-              "labelKey": "bgadv.continue"
+              "labelKey": "bgadvmax.continue"
             }
           ]
         },
         "courier": {
           "id": "courier",
           "kind": "choice",
-          "textKey": "bgadv.courier.text",
+          "textKey": "bgadvmax.courier.text",
           "choices": [
             {
               "id": "say_location",
@@ -282,7 +282,7 @@
                 }
               ],
               "goto": "courier_quantum",
-              "labelKey": "bgadv.courier.location"
+              "labelKey": "bgadvmax.courier.location"
             },
             {
               "id": "run_outside",
@@ -294,7 +294,7 @@
                 }
               ],
               "goto": "courier_street",
-              "labelKey": "bgadv.courier.run"
+              "labelKey": "bgadvmax.courier.run"
             },
             {
               "id": "ask_landmark",
@@ -306,14 +306,14 @@
                 }
               ],
               "goto": "courier_landmark",
-              "labelKey": "bgadv.courier.landmark"
+              "labelKey": "bgadvmax.courier.landmark"
             }
           ]
         },
         "courier_quantum": {
           "id": "courier_quantum",
           "kind": "choice",
-          "textKey": "bgadv.courier_quantum.text",
+          "textKey": "bgadvmax.courier_quantum.text",
           "choices": [
             {
               "id": "accept_quantum",
@@ -325,7 +325,7 @@
                 }
               ],
               "goto": "courier_result",
-              "labelKey": "bgadv.courier.accept"
+              "labelKey": "bgadvmax.courier.accept"
             },
             {
               "id": "request_office",
@@ -337,14 +337,14 @@
                 }
               ],
               "goto": "courier_result",
-              "labelKey": "bgadv.courier.office"
+              "labelKey": "bgadvmax.courier.office"
             }
           ]
         },
         "courier_street": {
           "id": "courier_street",
           "kind": "random",
-          "textKey": "bgadv.courier_street.text",
+          "textKey": "bgadvmax.courier_street.text",
           "transitions": [
             {
               "weight": 1,
@@ -373,7 +373,7 @@
         "courier_landmark": {
           "id": "courier_landmark",
           "kind": "choice",
-          "textKey": "bgadv.courier_landmark.text",
+          "textKey": "bgadvmax.courier_landmark.text",
           "choices": [
             {
               "id": "decode_landmark",
@@ -390,19 +390,19 @@
                 }
               ],
               "goto": "courier_result",
-              "labelKey": "bgadv.courier.decode"
+              "labelKey": "bgadvmax.courier.decode"
             }
           ]
         },
         "courier_result": {
           "id": "courier_result",
           "kind": "choice",
-          "textKey": "bgadv.courier_result.text",
+          "textKey": "bgadvmax.courier_result.text",
           "choices": [
             {
               "id": "open_package",
               "goto": "master",
-              "labelKey": "bgadv.courier.open"
+              "labelKey": "bgadvmax.courier.open"
             },
             {
               "id": "preserve_package",
@@ -414,14 +414,14 @@
                 }
               ],
               "goto": "master",
-              "labelKey": "bgadv.courier.preserve"
+              "labelKey": "bgadvmax.courier.preserve"
             }
           ]
         },
         "master": {
           "id": "master",
           "kind": "choice",
-          "textKey": "bgadv.master.text",
+          "textKey": "bgadvmax.master.text",
           "choices": [
             {
               "id": "call_master",
@@ -433,7 +433,7 @@
                 }
               ],
               "goto": "master_time",
-              "labelKey": "bgadv.master.call"
+              "labelKey": "bgadvmax.master.call"
             },
             {
               "id": "call_friend",
@@ -450,8 +450,8 @@
                 }
               ],
               "goto": "master_arrival",
-              "labelKey": "bgadv.master.friend",
-              "requirementFailKey": "bgadv.master.friend_fail"
+              "labelKey": "bgadvmax.master.friend",
+              "requirementFailKey": "bgadvmax.master.friend_fail"
             },
             {
               "id": "watch_video",
@@ -463,14 +463,14 @@
                 }
               ],
               "goto": "master_diy",
-              "labelKey": "bgadv.master.video"
+              "labelKey": "bgadvmax.master.video"
             }
           ]
         },
         "master_time": {
           "id": "master_time",
           "kind": "choice",
-          "textKey": "bgadv.master_time.text",
+          "textKey": "bgadvmax.master_time.text",
           "choices": [
             {
               "id": "ask_which_monday",
@@ -482,19 +482,19 @@
                 }
               ],
               "goto": "master_arrival",
-              "labelKey": "bgadv.master.which_monday"
+              "labelKey": "bgadvmax.master.which_monday"
             },
             {
               "id": "accept_monday",
               "goto": "master_arrival",
-              "labelKey": "bgadv.master.accept_monday"
+              "labelKey": "bgadvmax.master.accept_monday"
             }
           ]
         },
         "master_diy": {
           "id": "master_diy",
           "kind": "random",
-          "textKey": "bgadv.master_diy.text",
+          "textKey": "bgadvmax.master_diy.text",
           "transitions": [
             {
               "weight": 1,
@@ -528,7 +528,7 @@
         "master_arrival": {
           "id": "master_arrival",
           "kind": "choice",
-          "textKey": "bgadv.master_arrival.text",
+          "textKey": "bgadvmax.master_arrival.text",
           "choices": [
             {
               "id": "accept_new_price",
@@ -545,7 +545,7 @@
                 }
               ],
               "goto": "master_result",
-              "labelKey": "bgadv.master.price"
+              "labelKey": "bgadvmax.master.price"
             },
             {
               "id": "mention_original_price",
@@ -562,26 +562,26 @@
                 }
               ],
               "goto": "master_result",
-              "labelKey": "bgadv.master.original"
+              "labelKey": "bgadvmax.master.original"
             }
           ]
         },
         "master_result": {
           "id": "master_result",
           "kind": "choice",
-          "textKey": "bgadv.master_result.text",
+          "textKey": "bgadvmax.master_result.text",
           "choices": [
             {
               "id": "to_village",
               "goto": "village",
-              "labelKey": "bgadv.continue"
+              "labelKey": "bgadvmax.continue"
             }
           ]
         },
         "village": {
           "id": "village",
           "kind": "choice",
-          "textKey": "bgadv.village.text",
+          "textKey": "bgadvmax.village.text",
           "choices": [
             {
               "id": "deny_news",
@@ -593,7 +593,7 @@
                 }
               ],
               "goto": "baba_network",
-              "labelKey": "bgadv.village.deny"
+              "labelKey": "bgadvmax.village.deny"
             },
             {
               "id": "ask_source",
@@ -605,7 +605,7 @@
                 }
               ],
               "goto": "baba_source",
-              "labelKey": "bgadv.village.source"
+              "labelKey": "bgadvmax.village.source"
             },
             {
               "id": "offer_coffee",
@@ -622,14 +622,14 @@
                 }
               ],
               "goto": "baba_alliance",
-              "labelKey": "bgadv.village.coffee"
+              "labelKey": "bgadvmax.village.coffee"
             }
           ]
         },
         "baba_network": {
           "id": "baba_network",
           "kind": "choice",
-          "textKey": "bgadv.baba_network.text",
+          "textKey": "bgadvmax.baba_network.text",
           "choices": [
             {
               "id": "surrender_privacy",
@@ -641,7 +641,7 @@
                 }
               ],
               "goto": "village_feast",
-              "labelKey": "bgadv.village.surrender"
+              "labelKey": "bgadvmax.village.surrender"
             },
             {
               "id": "issue_correction",
@@ -653,14 +653,14 @@
                 }
               ],
               "goto": "village_feast",
-              "labelKey": "bgadv.village.correct"
+              "labelKey": "bgadvmax.village.correct"
             }
           ]
         },
         "baba_source": {
           "id": "baba_source",
           "kind": "choice",
-          "textKey": "bgadv.baba_source.text",
+          "textKey": "bgadvmax.baba_source.text",
           "choices": [
             {
               "id": "accept_source",
@@ -672,14 +672,14 @@
                 }
               ],
               "goto": "village_feast",
-              "labelKey": "bgadv.village.accept_source"
+              "labelKey": "bgadvmax.village.accept_source"
             }
           ]
         },
         "baba_alliance": {
           "id": "baba_alliance",
           "kind": "choice",
-          "textKey": "bgadv.baba_alliance.text",
+          "textKey": "bgadvmax.baba_alliance.text",
           "choices": [
             {
               "id": "receive_intelligence",
@@ -691,14 +691,14 @@
                 }
               ],
               "goto": "village_feast",
-              "labelKey": "bgadv.village.intelligence"
+              "labelKey": "bgadvmax.village.intelligence"
             }
           ]
         },
         "village_feast": {
           "id": "village_feast",
           "kind": "choice",
-          "textKey": "bgadv.village_feast.text",
+          "textKey": "bgadvmax.village_feast.text",
           "choices": [
             {
               "id": "one_rakia",
@@ -715,7 +715,7 @@
                 }
               ],
               "goto": "municipality",
-              "labelKey": "bgadv.village.one"
+              "labelKey": "bgadvmax.village.one"
             },
             {
               "id": "refuse_rakia",
@@ -727,7 +727,7 @@
                 }
               ],
               "goto": "municipality",
-              "labelKey": "bgadv.village.refuse"
+              "labelKey": "bgadvmax.village.refuse"
             },
             {
               "id": "define_one",
@@ -744,14 +744,14 @@
                 }
               ],
               "goto": "municipality",
-              "labelKey": "bgadv.village.define"
+              "labelKey": "bgadvmax.village.define"
             }
           ]
         },
         "municipality": {
           "id": "municipality",
           "kind": "choice",
-          "textKey": "bgadv.municipality.text",
+          "textKey": "bgadvmax.municipality.text",
           "choices": [
             {
               "id": "present_folder",
@@ -768,8 +768,8 @@
                 }
               ],
               "goto": "clerk",
-              "labelKey": "bgadv.municipality.folder",
-              "requirementFailKey": "bgadv.municipality.folder_fail"
+              "labelKey": "bgadvmax.municipality.folder",
+              "requirementFailKey": "bgadvmax.municipality.folder_fail"
             },
             {
               "id": "ask_which_document",
@@ -781,7 +781,7 @@
                 }
               ],
               "goto": "clerk",
-              "labelKey": "bgadv.municipality.ask"
+              "labelKey": "bgadvmax.municipality.ask"
             },
             {
               "id": "call_connection",
@@ -798,15 +798,15 @@
                 }
               ],
               "goto": "clerk_connection",
-              "labelKey": "bgadv.municipality.connection",
-              "requirementFailKey": "bgadv.municipality.connection_fail"
+              "labelKey": "bgadvmax.municipality.connection",
+              "requirementFailKey": "bgadvmax.municipality.connection_fail"
             }
           ]
         },
         "clerk": {
           "id": "clerk",
           "kind": "choice",
-          "textKey": "bgadv.clerk.text",
+          "textKey": "bgadvmax.clerk.text",
           "choices": [
             {
               "id": "use_blue_pen",
@@ -823,7 +823,7 @@
                 }
               ],
               "goto": "final_counter",
-              "labelKey": "bgadv.clerk.blue"
+              "labelKey": "bgadvmax.clerk.blue"
             },
             {
               "id": "find_blue_pen",
@@ -840,14 +840,14 @@
                 }
               ],
               "goto": "pen_shop",
-              "labelKey": "bgadv.clerk.find"
+              "labelKey": "bgadvmax.clerk.find"
             }
           ]
         },
         "clerk_connection": {
           "id": "clerk_connection",
           "kind": "choice",
-          "textKey": "bgadv.clerk_connection.text",
+          "textKey": "bgadvmax.clerk_connection.text",
           "choices": [
             {
               "id": "accept_help",
@@ -859,14 +859,14 @@
                 }
               ],
               "goto": "final_counter",
-              "labelKey": "bgadv.clerk.accept"
+              "labelKey": "bgadvmax.clerk.accept"
             }
           ]
         },
         "pen_shop": {
           "id": "pen_shop",
           "kind": "choice",
-          "textKey": "bgadv.pen_shop.text",
+          "textKey": "bgadvmax.pen_shop.text",
           "choices": [
             {
               "id": "buy_pen",
@@ -883,7 +883,7 @@
                 }
               ],
               "goto": "final_counter",
-              "labelKey": "bgadv.pen_shop.buy"
+              "labelKey": "bgadvmax.pen_shop.buy"
             },
             {
               "id": "borrow_pen",
@@ -895,14 +895,14 @@
                 }
               ],
               "goto": "final_counter",
-              "labelKey": "bgadv.pen_shop.borrow"
+              "labelKey": "bgadvmax.pen_shop.borrow"
             }
           ]
         },
         "final_counter": {
           "id": "final_counter",
           "kind": "choice",
-          "textKey": "bgadv.final_counter.text",
+          "textKey": "bgadvmax.final_counter.text",
           "choices": [
             {
               "id": "submit_normally",
@@ -914,7 +914,7 @@
                 }
               ],
               "goto": "final_event",
-              "labelKey": "bgadv.final_counter.submit"
+              "labelKey": "bgadvmax.final_counter.submit"
             },
             {
               "id": "deploy_baba",
@@ -931,7 +931,7 @@
                 }
               ],
               "goto": "ending_local_protocol",
-              "labelKey": "bgadv.final_counter.baba"
+              "labelKey": "bgadvmax.final_counter.baba"
             },
             {
               "id": "declare_victory",
@@ -941,15 +941,15 @@
                 "value": 8
               },
               "goto": "ending_became_system",
-              "labelKey": "bgadv.final_counter.victory",
-              "requirementFailKey": "bgadv.final_counter.victory_fail"
+              "labelKey": "bgadvmax.final_counter.victory",
+              "requirementFailKey": "bgadvmax.final_counter.victory_fail"
             }
           ]
         },
         "final_event": {
           "id": "final_event",
           "kind": "random",
-          "textKey": "bgadv.final_event.text",
+          "textKey": "bgadvmax.final_event.text",
           "transitions": [
             {
               "weight": 2,
@@ -975,35 +975,35 @@
         "ending_document_received": {
           "id": "ending_document_received",
           "kind": "ending",
-          "textKey": "bgadv.ending.document.text",
+          "textKey": "bgadvmax.ending.document.text",
           "endingId": "document_received",
           "outcome": "win"
         },
         "ending_local_protocol": {
           "id": "ending_local_protocol",
           "kind": "ending",
-          "textKey": "bgadv.ending.local.text",
+          "textKey": "bgadvmax.ending.local.text",
           "endingId": "local_protocol",
           "outcome": "win"
         },
         "ending_became_system": {
           "id": "ending_became_system",
           "kind": "ending",
-          "textKey": "bgadv.ending.system.text",
+          "textKey": "bgadvmax.ending.system.text",
           "endingId": "became_the_system",
           "outcome": "neutral"
         },
         "ending_lunch_break": {
           "id": "ending_lunch_break",
           "kind": "ending",
-          "textKey": "bgadv.ending.lunch.text",
+          "textKey": "bgadvmax.ending.lunch.text",
           "endingId": "lunch_break",
           "outcome": "neutral"
         },
         "ending_wrong_municipality": {
           "id": "ending_wrong_municipality",
           "kind": "ending",
-          "textKey": "bgadv.ending.wrong.text",
+          "textKey": "bgadvmax.ending.wrong.text",
           "endingId": "wrong_municipality",
           "outcome": "loss"
         }
@@ -1018,8 +1018,8 @@
             "operator": "equals",
             "value": true
           },
-          "nameKey": "bgadv.achievement.chair.name",
-          "descriptionKey": "bgadv.achievement.chair.description"
+          "nameKey": "bgadvmax.achievement.chair.name",
+          "descriptionKey": "bgadvmax.achievement.chair.description"
         },
         {
           "id": "quantum_courier",
@@ -1029,8 +1029,8 @@
             "operator": "equals",
             "value": true
           },
-          "nameKey": "bgadv.achievement.courier.name",
-          "descriptionKey": "bgadv.achievement.courier.description"
+          "nameKey": "bgadvmax.achievement.courier.name",
+          "descriptionKey": "bgadvmax.achievement.courier.description"
         },
         {
           "id": "the_master_came",
@@ -1040,8 +1040,8 @@
             "operator": "equals",
             "value": true
           },
-          "nameKey": "bgadv.achievement.master.name",
-          "descriptionKey": "bgadv.achievement.master.description"
+          "nameKey": "bgadvmax.achievement.master.name",
+          "descriptionKey": "bgadvmax.achievement.master.description"
         },
         {
           "id": "village_api",
@@ -1051,8 +1051,8 @@
             "operator": "equals",
             "value": true
           },
-          "nameKey": "bgadv.achievement.baba.name",
-          "descriptionKey": "bgadv.achievement.baba.description"
+          "nameKey": "bgadvmax.achievement.baba.name",
+          "descriptionKey": "bgadvmax.achievement.baba.description"
         },
         {
           "id": "the_document",
@@ -1062,8 +1062,8 @@
             "operator": "equals",
             "value": "document_received"
           },
-          "nameKey": "bgadv.achievement.document.name",
-          "descriptionKey": "bgadv.achievement.document.description"
+          "nameKey": "bgadvmax.achievement.document.name",
+          "descriptionKey": "bgadvmax.achievement.document.description"
         },
         {
           "id": "wrong_municipality",
@@ -1073,112 +1073,112 @@
             "operator": "equals",
             "value": "wrong_municipality"
           },
-          "nameKey": "bgadv.achievement.wrong.name",
-          "descriptionKey": "bgadv.achievement.wrong.description"
+          "nameKey": "bgadvmax.achievement.wrong.name",
+          "descriptionKey": "bgadvmax.achievement.wrong.description"
         }
       ]
     }
   },
   "strings": {
-    "bgadv.achievement.baba.description": "Authenticate successfully with the oldest, fastest, and most accurate distributed intelligence network in the Balkans.",
-    "bgadv.achievement.baba.name": "Root Access: Village",
-    "bgadv.achievement.chair.description": "Formally recognize a single plastic chair as a sovereign, immunity-holding parking authority.",
-    "bgadv.achievement.chair.name": "Ambassador to the Chair",
-    "bgadv.achievement.courier.description": "Successfully collapse the courier's ambiguous location into a single, deliverable reality.",
-    "bgadv.achievement.courier.name": "Wavefunction Observed",
-    "bgadv.achievement.document.description": "Obtain the final stamped document before a sixth requirement has the chance to spontaneously generate.",
-    "bgadv.achievement.document.name": "Five Errands, One Legendary Day",
-    "bgadv.achievement.master.description": "Witness a майстор personally appear on a calendar date that can be legally and spiritually described as Monday.",
-    "bgadv.achievement.master.name": "Monday Has, In Fact, Arrived",
-    "bgadv.achievement.wrong.description": "Arrive with a flawless folder of correct documents at a municipality that redrew its own borders this morning.",
-    "bgadv.achievement.wrong.name": "Correct in Entirely the Wrong Place",
-    "bgadv.baba_alliance.text": "Coffee is served, black, unbidden, and non-negotiable. Within six minutes you have received the mayor's full weekly schedule, the municipal clerk's maiden name and shoe size, the correct office number nobody official will tell you, two unsolicited medical diagnoses regarding your posture, and an urgent, unverified warning that the municipality has run out of blue pens entirely, possibly permanently.",
-    "bgadv.baba_network.text": "By the time your denial has propagated to the next house over, it has transformed into an enthusiastic confirmation, acquired a secret engagement you were apparently not informed of, and somehow gained a German car. The network, true to its design, corrects for missing data not by discarding it but by generously improving it.",
-    "bgadv.baba_source.text": "She explains, patiently, that her sister heard it from the pharmacist's daughter, whose husband personally saw your car parked suspiciously near the courier's regional office. You point out, with what you believe is an unassailable logical advantage, that you never actually went to the courier's office. She nods, satisfied, as though you have just confirmed rather than refuted the theory. That, she says, explains why the courier was so late.",
-    "bgadv.campaign.description": "One ordinary day. Five minor tasks. A nation-sized escape room where every clue is delivered verbally, at volume, by somebody's aunt who was not present for any of it.",
-    "bgadv.campaign.title": "Bulgarian Adventures: Everything Is Extremely Fine",
-    "bgadv.clerk.accept": "Accept this entirely procedural, entirely coincidental, thoroughly unremarkable miracle without further comment",
-    "bgadv.clerk.blue": "Triumphantly produce the sacred blue pen you have been protecting, in its sock, since 08:07",
-    "bgadv.clerk.find": "Rush out to find a working blue pen before the office rediscovers the concept of lunch and disappears for ninety minutes",
-    "bgadv.clerk.text": "The clerk examines your documents with the focused intensity of a jeweler appraising a suspicious diamond, and finds them, remarkably, entirely correct. A long silence follows, heavy with dread. Then she notices the application has been signed in black ink. The regulation, she informs you, does not technically require blue ink. The regulation, she also informs you, is not currently located in this room, this floor, or possibly this building.",
-    "bgadv.clerk_connection.text": "Your connection, it is made very clear, does not bypass any rules whatsoever. That would be improper, and everyone involved wants that understood. Instead, entirely coincidentally, a second woman enters from the adjoining room, applies the exact same rules in the exact correct order, and resolves the entire matter in just under forty seconds.",
-    "bgadv.continue": "Continue with your completely ordinary day",
-    "bgadv.courier.accept": "Accept, spiritually, that you are both outside, in adjacent but non-overlapping realities, and that this is fine",
-    "bgadv.courier.decode": "Trust the National Landmark Protocol completely and unquestioningly, as generations have before you",
-    "bgadv.courier.landmark": "Ask what he can currently see with his own eyes, initiating the national landmark-based location protocol",
-    "bgadv.courier.location": "Read him your exact address, street number, and floor, all of which are already displayed, unread, on his own screen",
-    "bgadv.courier.office": "Redirect the parcel to the regional depot and formally request documentary proof that the surrender of the package occurred at all",
-    "bgadv.courier.open": "Open the parcel immediately, right there on the pavement, audience included",
-    "bgadv.courier.preserve": "Preserve every label, receipt, and stray fragment of packing tape, in case the parcel is later formally accused of not existing",
-    "bgadv.courier.run": "Abandon the phone call and sprint around the building perimeter, hunting for a white van that may not exist in this timeline",
-    "bgadv.courier.text": "ACT II — THE QUANTUM COURIER\n\nYour phone rings. The courier announces, with total conviction, ‘I am outside.’ You are, in fact, outside. He is not. You can see the entire street. There is no van, no motorcycle, no visible human matching the voice on the phone, and yet the call continues as though this were a minor and expected inconsistency.\n\nIn Bulgaria, ‘outside’ is not a location. It is a metaphysical claim, the opening move in a negotiation whose rules were established before either of you was born.",
-    "bgadv.courier_landmark.text": "He can see, he reports, the old shop. You ask, reasonably, which old shop, given that there are at minimum four candidates within a two-block radius, all closed, all ancestral. He says, with the finality of scripture, ‘The old one.’ This is instantly and completely understood by a passing pensioner, who, without breaking stride or making eye contact, points two streets east and continues about her day, mission accomplished.",
-    "bgadv.courier_quantum.text": "You repeat the address, syllable by syllable, as though teaching a foreign language to a skeptical parrot. He repeats ‘I am outside,’ now delivered with the wounded patience of a man forced, yet again, to explain geography to the person who apparently invented it and then forgot how it works. A dog barks through the phone from somewhere that is, provably, not your street, possibly not your city, possibly not this decade.",
-    "bgadv.courier_result.text": "The parcel is, against all odds and several laws of physics, finally transferred. The courier requests exact change for a delivery fee that was never mentioned before this exact moment, produces exact change himself when you cannot, and vanishes on his invisible vehicle before causality has finished processing the transaction.",
-    "bgadv.courier_street.text": "You locate three white vans within thirty seconds. One sells bread out the side door. One is entirely full of plumbing fittings and a sleeping cat. One pulls away the instant you make eye contact, with the unmistakable body language of a van that has somewhere else to be. The universe, silently and without appeal, selects which one mattered.",
-    "bgadv.ending.document.text": "THE DOCUMENT, ACQUIRED\n\nThe stamp lands, true and clean. Your application is accepted, in full, on the first attempt. Nobody applauds, because everyone present understands, on an ancestral level, that drawing attention to a successful bureaucratic outcome at this exact stage would be recklessly, catastrophically premature.\n\nYou have completed five errands in one single Bulgarian day, survived a parking chair's sovereign court, an interdimensional courier, an immortal tradesman, and an entire village's surveillance apparatus. This is not officially recognized as a national record, and it never will be, purely because the office that would record it closes at exactly the wrong time every single day, on purpose, possibly out of self-preservation.",
-    "bgadv.ending.local.text": "THE LOCAL PROTOCOL, INVOKED\n\nThe clerk hears the aunt's name spoken aloud, freezes, asks how you possibly know her, and within ninety seconds discovers that the two of you ate banitsa in the exact same village fifteen years apart, at the exact same bakery, possibly baked by the exact same grandmother. The document is accepted through absolutely no corruption whatsoever — merely an emergency, fully deserved restoration of proper social context.\n\nYou did not defeat the system today. You authenticated through it, using credentials older than the system itself.",
-    "bgadv.ending.lunch.text": "THE SECOND LUNCH\n\nAt 16:53, with seven minutes remaining on the clock and the document one signature from complete, the clerk announces an unscheduled seven-minute technical break. At 17:00 sharp, on the dot, with genuine punctuality that has been absent from every other part of this day, the office closes. Your application remains perfectly, tragically complete, sitting on the wrong side of the glass.\n\nTomorrow, you resolve, you will arrive at 07:30 sharp. A small, new, freshly printed note will inform you that the office now opens at 09:00 due to summer hours, which began, apparently, this morning.",
-    "bgadv.ending.system.text": "YOU HAVE BECOME THE SYSTEM\n\nYou place every receipt, every rumour, every parking grievance, every impossible courier coordinate, and every blue-ink signature you have accumulated today onto the counter, all at once, in a single towering stack. The file has, by any reasonable measure, achieved genuine bureaucratic mass. The clerk stamps it immediately, not out of approval, but purely to prevent it from growing any further.\n\nOutside, a stranger stops you to ask, urgently, where Room 12 actually is. You look at them, look at Room 7, and say, with total and hard-won authority, ‘It depends.’ They thank you and walk away satisfied. You are now, unofficially, part of the institution.",
-    "bgadv.ending.wrong.text": "THE WRONG MUNICIPALITY\n\nThe stamp stops, hovering, exactly one centimetre above the paper, and does not descend. The clerk asks, not unkindly, why you have come here at all. Your home address, she explains, gesturing at a map that did not exist yesterday, now belongs to the neighbouring municipality. It did not, she confirms, belong there yesterday morning. The administrative boundary was quietly redrawn online sometime between your coffee and your second rakia.\n\nEvery single document you are holding is, technically, completely correct. You are simply, through no fault of your own, correct in entirely the wrong jurisdiction, a condition for which there is, as of yet, no known cure and no known office.",
-    "bgadv.final_counter.baba": "Casually mention the clerk's aunt by her full first name, deploying your entire village intelligence network in a single decisive strike",
-    "bgadv.final_counter.submit": "Submit the document plainly, quietly, and permit fate exactly one final, uncontested move",
-    "bgadv.final_counter.text": "You return at 16:51 with nine minutes to spare and the thousand-yard stare of a war veteran. The form is blue. The copies are stamped, restamped, and stamped once more for luck. The clerk studies the now-complete file with the specific expression of someone whose final line of defensive bureaucracy has, at long last, fallen.\n\nThere is, everyone in the room silently agrees, still exactly enough time left for one last thing to go catastrophically, gloriously wrong.",
-    "bgadv.final_counter.victory": "Formally declare that Documented Absurdity itself, at this quantity, now legally constitutes your supporting documentation",
-    "bgadv.final_counter.victory_fail": "You have not, this session, generated sufficient absurdity to establish proper legal standing for this particular gambit.",
-    "bgadv.final_event.text": "The stamp rises into the air, hovers with theatrical menace, and begins its descent. Somewhere unseen, the universe rolls dice for jurisdiction, ink supply, and lunch-break timing, all simultaneously.",
-    "bgadv.master.accept_monday": "Accept 'Monday' not as a date but as a philosophical stance on the nature of obligation itself",
-    "bgadv.master.call": "Ask, directly and perhaps naively, when precisely he intends to arrive",
-    "bgadv.master.friend": "Call the friend of the person you now know, invoking the full weight of the social graph you have been quietly building since 08:07",
-    "bgadv.master.friend_fail": "You do not yet know enough people who know people who know the majstor's cousin's godfather. This is not, the universe clarifies, a skills problem. It is an infrastructure problem, and infrastructure takes generations.",
-    "bgadv.master.original": "Gently mention the original quoted price and watch, in real time, as basic economics is reclassified as regional folklore",
-    "bgadv.master.price": "Accept the revised price without complaint, as the appropriate cost of witnessing a genuine miracle in your own bathroom",
-    "bgadv.master.text": "ACT III — THE IMMORTAL МАЙСТОР\n\nThe parcel contains the valve your майстор swore, on his mother's health, was impossible to source anywhere on the Balkan peninsula, possibly the continent. The leaking pipe has been patiently waiting for him since ‘Monday’ — a Monday with no attached calendar date, existing outside conventional chronology, referenced the way other cultures reference the apocalypse.\n\nYou call. He answers on the first ring with, ‘I was just about to call you,’ a sentence he has said, verifiably, every single time, for eleven years, possibly longer, possibly since before you owned this apartment.",
-    "bgadv.master.video": "Watch a nine-minute plumbing tutorial at 1.5x speed and become, for legal and emotional purposes, a temporarily licensed tradesman",
-    "bgadv.master.which_monday": "Ask, with rising existential dread, which Monday specifically he originally meant",
-    "bgadv.master_arrival.text": "The майстор arrives. Multiple neighbours step onto their balconies specifically to witness this, treating it as a minor but confirmed miracle. He examines the valve, the pipe, the wall, the building's foundation, your life choices, and your decision to purchase the valve yourself rather than through his cousin, who, he notes, would have gotten you a better one. The original quoted price is no longer available, on account of the problem now having been seen in person, with his own two eyes, which changes everything, spiritually and financially.",
-    "bgadv.master_diy.text": "The video insists you must ‘simply remove the old fitting.’ The fitting, for its part, has spent forty years quietly and thoroughly becoming both structurally load-bearing and, somehow, emotionally attached to the building, and to you personally.",
-    "bgadv.master_result.text": "He fixes the leak in eleven minutes flat, using your valve, two mismatched washers extracted from somewhere deep in his jacket pocket, and a tool that appears to have been hand-forged during the Yugoslav era for a completely different purpose. He informs you, with total serenity, that the entire original installation was wrong, has always been wrong, and will now, thanks to him, outlive both you and your grandchildren.",
-    "bgadv.master_time.text": "He confirms: Monday. You gently point out that today is, in fact, currently, actively Monday. He pauses — not out of confusion, you understand, but because you have introduced an entirely unwelcome and frankly rude level of temporal precision into what was previously a comfortable, ambient arrangement.",
-    "bgadv.municipality.ask": "Ask, with the calm of someone who has already lost, which document is in fact actually, truly required",
-    "bgadv.municipality.connection": "Call the person who knows the person, cashing in the single largest favor accumulated so far today",
-    "bgadv.municipality.connection_fail": "Your social graph, vast and well-earned though it is, does not yet extend into this particular department's jurisdiction.",
-    "bgadv.municipality.folder": "Slam the folder onto the counter before anyone in the building has the opportunity to invent an additional requirement",
-    "bgadv.municipality.folder_fail": "Your folder, while technically complete, lacks the minimum ceremonial density required to properly intimidate a state institution into swift action.",
-    "bgadv.municipality.text": "ACT V — THE FINAL DOCUMENT\n\nAt 15:42 you reach the municipality, slightly rakia-adjacent and radiating documented absurdity. Room 12 requires exactly one document to confirm a fact that is already, provably, visible in no fewer than three separate government databases. A handwritten note taped to Room 12's door states that Room 12 has permanently relocated to Room 7. A second, older, more confident note on Room 7's door states, with equal conviction, that Room 12 has not moved, has never moved, and will not be moving.",
-    "bgadv.parking.ask": "Ask whose chair it is, thereby triggering an oral inquiry that will outlast several governments",
-    "bgadv.parking.move": "Move the chair. It is, technically, still just a chair, a fact you will come to regret believing",
-    "bgadv.parking.respect": "Bow slightly and recognize the chair as a sovereign micro-state with full diplomatic immunity",
-    "bgadv.parking.text": "ACT I — THE CHAIR OF ABSOLUTE SOVEREIGNTY\n\nYou find the last open parking space in the entire municipality, possibly the entire Balkan peninsula. It is occupied by a single plastic chair, weathered to the exact shade of ancestral authority. The chair has no licence plate, no owner, no visible legal standing, and considerably more territorial jurisdiction than your car, the traffic police, and arguably the constitution.\n\nThree balconies are watching. A fourth balcony has gone inside specifically to get a better vantage point. Somewhere, a dog has begun narrating your indecision to the street.",
-    "bgadv.parking_council.apologize": "Return the chair to its exact original coordinates, plus a small bow, and formally apologize for the international incident",
-    "bgadv.parking_council.law": "Cite the specific municipal parking ordinance, chapter and verse, to the assembled balcony tribunal, who are unmoved because the ordinance is not oral",
-    "bgadv.parking_council.text": "Before the chair's plastic feet have finished sliding across the asphalt, a man materializes from a shop that has been visibly, definitively, triple-padlocked closed since March. He explains, with the calm of prophecy, that his cousin will be back in five minutes to reclaim the space. A woman leans from the second floor to announce that this cousin has been living in Germany since 2019, has a German wife, and possibly a German dog. Neither statement is treated as weakening the original claim. If anything, the claim has gained institutional weight.",
-    "bgadv.parking_result_bad.text": "You park successfully. Astonishingly, nobody blocks you in. This is, on reflection, much worse: the vehicles on either side leave exactly eleven centimetres of clearance at each bumper, a margin so precise it can only be read as both a threat and a compliment, executed by someone who did not need to look while doing it.",
-    "bgadv.parking_result_good.text": "The chair's custodian, moved by your restraint, personally escorts you to a legal parking space behind the pharmacy that does not appear on any map, official or otherwise. You have not parked faster. You have, however, acquired a person who knows a person, three new nicknames, and an open invitation to a wedding you cannot identify the couple for.",
-    "bgadv.parking_witnesses.text": "The balconies confer amongst themselves in a dialect reserved entirely for property disputes. Somewhere a grandmother produces a folding chair of her own, purely to observe the proceedings in comfort. Bulgarian oral law enters formal deliberation, quorum achieved by shouting distance.",
-    "bgadv.pen_shop.borrow": "Borrow a pen from the next person in the queue and, in the process, become temporary, honorary family",
-    "bgadv.pen_shop.buy": "Buy three blue pens on principle, so this exact humiliation can never happen to you again",
-    "bgadv.pen_shop.text": "The nearest shop sells pens, lottery tickets, artisanal coffee, phone cases of debatable provenance, small religious icons, batteries in four different voltages, and exactly one tomato, alone, on its own shelf, for reasons nobody working there can or will explain. The blue pens themselves are kept behind the counter, under lock, as though they are controlled municipal equipment, which, functionally, today, they are.",
-    "bgadv.prologue.local": "Call one person who knows one person who allegedly knows the mayor's cousin's dentist, before anything has gone wrong, purely as a hedge",
-    "bgadv.prologue.optimistic": "Begin with confidence. Surely five errands, one country, and one immortal tradesman fit inside a single Tuesday",
-    "bgadv.prologue.prepared": "Bring a folder of documents, a spare folder in case the first folder is deemed insufficiently thick, and the sacred blue pen",
-    "bgadv.prologue.text": "BULGARIAN ADVENTURES: EVERYTHING IS EXTREMELY FINE\n\nIt is 08:07. The sun has not yet decided how hot it intends to be, which is also true of the municipal government. Your objectives are modest: park the car, receive a parcel from a courier who exists in a superposition of locations, let a майстор who has outlived three regimes fix one pipe, visit a village with a surveillance apparatus that would make several intelligence agencies request a meeting, and submit one document before the municipality closes.\n\nThe municipality closes at 17:00, except when it closes at 14:30 for a wedding nobody official was invited to. You have brought optimism, a Thermos, and a single blue pen wrapped in a sock for protection. This was, historically speaking, not enough.",
-    "bgadv.var.absurdity": "Documented Absurdity (Notarized)",
-    "bgadv.var.connections": "People Who Know A Person Who Knows God",
-    "bgadv.var.documents": "Potentially Correct Documents",
-    "bgadv.var.patience": "Patience Remaining (Theoretical)",
-    "bgadv.var.rakia": "One Rakia (Undefined Unit)",
-    "bgadv.village.accept_source": "Accept the source as fully, independently peer-reviewed by a village council of one grandmother and her landline",
-    "bgadv.village.coffee": "Put the coffee on immediately and formally request full read-access to the intelligence network",
-    "bgadv.village.correct": "Attempt to issue a formal factual correction to the village's oral internet, a request logged and instantly ignored",
-    "bgadv.village.define": "Ask, bravely, exactly how large this particular ‘one’ is intended to be, a question no one has ever successfully answered",
-    "bgadv.village.deny": "Deny everything, calmly and completely, in a last, doomed attempt to preserve the concept of privacy as an institution",
-    "bgadv.village.intelligence": "Memorize only the operationally useful parts and quietly abandon your commitment to epistemology for the day",
-    "bgadv.village.one": "Accept precisely one rakia, understood in the traditional, non-Euclidean, load-bearing sense of the word ‘one’",
-    "bgadv.village.refuse": "Politely refuse, thereby triggering an immediate, informal, and deeply concerned village medical inquiry into your health",
-    "bgadv.village.source": "Ask, purely for research purposes, how she possibly knows any of this",
-    "bgadv.village.surrender": "Accept the Terms of Service, unread, as one does",
-    "bgadv.village.text": "ACT IV — THE VILLAGE API\n\nYou arrive at the village. Before you have finished closing the gate, a neighbour materializes to ask, in a single uninterrupted breath, whether the pipe is fixed, why the courier was so late, whether the man from the city is still upset about the chair incident, and whether it's true you're getting a dog.\n\nYou told absolutely none of this to anyone here. You have not, in fact, spoken to a single soul in this village since Easter.",
-    "bgadv.village_feast.text": "You attempt to stand and leave. Food materializes on the table with the speed and inevitability of a natural law. Refusing the food, you understand instinctively, would imply illness, personal hostility, or susceptibility to foreign influence. A bottle bearing no label whatsoever is placed, without comment, beside your plate. Your host refers to its contents as ‘one rakia,’ a unit of measurement with a well-documented lower bound and, as far as anyone has determined, no upper one."
+    "bgadvmax.achievement.baba.description": "Authenticate successfully with the oldest, fastest, and most accurate distributed intelligence network in the Balkans.",
+    "bgadvmax.achievement.baba.name": "Root Access: Village",
+    "bgadvmax.achievement.chair.description": "Formally recognize a single plastic chair as a sovereign, immunity-holding parking authority.",
+    "bgadvmax.achievement.chair.name": "Ambassador to the Chair",
+    "bgadvmax.achievement.courier.description": "Successfully collapse the courier's ambiguous location into a single, deliverable reality.",
+    "bgadvmax.achievement.courier.name": "Wavefunction Observed",
+    "bgadvmax.achievement.document.description": "Obtain the final stamped document before a sixth requirement has the chance to spontaneously generate.",
+    "bgadvmax.achievement.document.name": "Five Errands, One Legendary Day",
+    "bgadvmax.achievement.master.description": "Witness a майстор personally appear on a calendar date that can be legally and spiritually described as Monday.",
+    "bgadvmax.achievement.master.name": "Monday Has, In Fact, Arrived",
+    "bgadvmax.achievement.wrong.description": "Arrive with a flawless folder of correct documents at a municipality that redrew its own borders this morning.",
+    "bgadvmax.achievement.wrong.name": "Correct in Entirely the Wrong Place",
+    "bgadvmax.baba_alliance.text": "Coffee is served, black, unbidden, and non-negotiable. Within six minutes you have received the mayor's full weekly schedule, the municipal clerk's maiden name and shoe size, the correct office number nobody official will tell you, two unsolicited medical diagnoses regarding your posture, and an urgent, unverified warning that the municipality has run out of blue pens entirely, possibly permanently.",
+    "bgadvmax.baba_network.text": "By the time your denial has propagated to the next house over, it has transformed into an enthusiastic confirmation, acquired a secret engagement you were apparently not informed of, and somehow gained a German car. The network, true to its design, corrects for missing data not by discarding it but by generously improving it.",
+    "bgadvmax.baba_source.text": "She explains, patiently, that her sister heard it from the pharmacist's daughter, whose husband personally saw your car parked suspiciously near the courier's regional office. You point out, with what you believe is an unassailable logical advantage, that you never actually went to the courier's office. She nods, satisfied, as though you have just confirmed rather than refuted the theory. That, she says, explains why the courier was so late.",
+    "bgadvmax.campaign.description": "One ordinary day. Five minor tasks. A nation-sized escape room where every clue is delivered verbally, at volume, by somebody's aunt who was not present for any of it.",
+    "bgadvmax.campaign.title": "Bulgarian Adventures: Everything Is Extremely Fine",
+    "bgadvmax.clerk.accept": "Accept this entirely procedural, entirely coincidental, thoroughly unremarkable miracle without further comment",
+    "bgadvmax.clerk.blue": "Triumphantly produce the sacred blue pen you have been protecting, in its sock, since 08:07",
+    "bgadvmax.clerk.find": "Rush out to find a working blue pen before the office rediscovers the concept of lunch and disappears for ninety minutes",
+    "bgadvmax.clerk.text": "The clerk examines your documents with the focused intensity of a jeweler appraising a suspicious diamond, and finds them, remarkably, entirely correct. A long silence follows, heavy with dread. Then she notices the application has been signed in black ink. The regulation, she informs you, does not technically require blue ink. The regulation, she also informs you, is not currently located in this room, this floor, or possibly this building.",
+    "bgadvmax.clerk_connection.text": "Your connection, it is made very clear, does not bypass any rules whatsoever. That would be improper, and everyone involved wants that understood. Instead, entirely coincidentally, a second woman enters from the adjoining room, applies the exact same rules in the exact correct order, and resolves the entire matter in just under forty seconds.",
+    "bgadvmax.continue": "Continue with your completely ordinary day",
+    "bgadvmax.courier.accept": "Accept, spiritually, that you are both outside, in adjacent but non-overlapping realities, and that this is fine",
+    "bgadvmax.courier.decode": "Trust the National Landmark Protocol completely and unquestioningly, as generations have before you",
+    "bgadvmax.courier.landmark": "Ask what he can currently see with his own eyes, initiating the national landmark-based location protocol",
+    "bgadvmax.courier.location": "Read him your exact address, street number, and floor, all of which are already displayed, unread, on his own screen",
+    "bgadvmax.courier.office": "Redirect the parcel to the regional depot and formally request documentary proof that the surrender of the package occurred at all",
+    "bgadvmax.courier.open": "Open the parcel immediately, right there on the pavement, audience included",
+    "bgadvmax.courier.preserve": "Preserve every label, receipt, and stray fragment of packing tape, in case the parcel is later formally accused of not existing",
+    "bgadvmax.courier.run": "Abandon the phone call and sprint around the building perimeter, hunting for a white van that may not exist in this timeline",
+    "bgadvmax.courier.text": "ACT II — THE QUANTUM COURIER\n\nYour phone rings. The courier announces, with total conviction, ‘I am outside.’ You are, in fact, outside. He is not. You can see the entire street. There is no van, no motorcycle, no visible human matching the voice on the phone, and yet the call continues as though this were a minor and expected inconsistency.\n\nIn Bulgaria, ‘outside’ is not a location. It is a metaphysical claim, the opening move in a negotiation whose rules were established before either of you was born.",
+    "bgadvmax.courier_landmark.text": "He can see, he reports, the old shop. You ask, reasonably, which old shop, given that there are at minimum four candidates within a two-block radius, all closed, all ancestral. He says, with the finality of scripture, ‘The old one.’ This is instantly and completely understood by a passing pensioner, who, without breaking stride or making eye contact, points two streets east and continues about her day, mission accomplished.",
+    "bgadvmax.courier_quantum.text": "You repeat the address, syllable by syllable, as though teaching a foreign language to a skeptical parrot. He repeats ‘I am outside,’ now delivered with the wounded patience of a man forced, yet again, to explain geography to the person who apparently invented it and then forgot how it works. A dog barks through the phone from somewhere that is, provably, not your street, possibly not your city, possibly not this decade.",
+    "bgadvmax.courier_result.text": "The parcel is, against all odds and several laws of physics, finally transferred. The courier requests exact change for a delivery fee that was never mentioned before this exact moment, produces exact change himself when you cannot, and vanishes on his invisible vehicle before causality has finished processing the transaction.",
+    "bgadvmax.courier_street.text": "You locate three white vans within thirty seconds. One sells bread out the side door. One is entirely full of plumbing fittings and a sleeping cat. One pulls away the instant you make eye contact, with the unmistakable body language of a van that has somewhere else to be. The universe, silently and without appeal, selects which one mattered.",
+    "bgadvmax.ending.document.text": "THE DOCUMENT, ACQUIRED\n\nThe stamp lands, true and clean. Your application is accepted, in full, on the first attempt. Nobody applauds, because everyone present understands, on an ancestral level, that drawing attention to a successful bureaucratic outcome at this exact stage would be recklessly, catastrophically premature.\n\nYou have completed five errands in one single Bulgarian day, survived a parking chair's sovereign court, an interdimensional courier, an immortal tradesman, and an entire village's surveillance apparatus. This is not officially recognized as a national record, and it never will be, purely because the office that would record it closes at exactly the wrong time every single day, on purpose, possibly out of self-preservation.",
+    "bgadvmax.ending.local.text": "THE LOCAL PROTOCOL, INVOKED\n\nThe clerk hears the aunt's name spoken aloud, freezes, asks how you possibly know her, and within ninety seconds discovers that the two of you ate banitsa in the exact same village fifteen years apart, at the exact same bakery, possibly baked by the exact same grandmother. The document is accepted through absolutely no corruption whatsoever — merely an emergency, fully deserved restoration of proper social context.\n\nYou did not defeat the system today. You authenticated through it, using credentials older than the system itself.",
+    "bgadvmax.ending.lunch.text": "THE SECOND LUNCH\n\nAt 16:53, with seven minutes remaining on the clock and the document one signature from complete, the clerk announces an unscheduled seven-minute technical break. At 17:00 sharp, on the dot, with genuine punctuality that has been absent from every other part of this day, the office closes. Your application remains perfectly, tragically complete, sitting on the wrong side of the glass.\n\nTomorrow, you resolve, you will arrive at 07:30 sharp. A small, new, freshly printed note will inform you that the office now opens at 09:00 due to summer hours, which began, apparently, this morning.",
+    "bgadvmax.ending.system.text": "YOU HAVE BECOME THE SYSTEM\n\nYou place every receipt, every rumour, every parking grievance, every impossible courier coordinate, and every blue-ink signature you have accumulated today onto the counter, all at once, in a single towering stack. The file has, by any reasonable measure, achieved genuine bureaucratic mass. The clerk stamps it immediately, not out of approval, but purely to prevent it from growing any further.\n\nOutside, a stranger stops you to ask, urgently, where Room 12 actually is. You look at them, look at Room 7, and say, with total and hard-won authority, ‘It depends.’ They thank you and walk away satisfied. You are now, unofficially, part of the institution.",
+    "bgadvmax.ending.wrong.text": "THE WRONG MUNICIPALITY\n\nThe stamp stops, hovering, exactly one centimetre above the paper, and does not descend. The clerk asks, not unkindly, why you have come here at all. Your home address, she explains, gesturing at a map that did not exist yesterday, now belongs to the neighbouring municipality. It did not, she confirms, belong there yesterday morning. The administrative boundary was quietly redrawn online sometime between your coffee and your second rakia.\n\nEvery single document you are holding is, technically, completely correct. You are simply, through no fault of your own, correct in entirely the wrong jurisdiction, a condition for which there is, as of yet, no known cure and no known office.",
+    "bgadvmax.final_counter.baba": "Casually mention the clerk's aunt by her full first name, deploying your entire village intelligence network in a single decisive strike",
+    "bgadvmax.final_counter.submit": "Submit the document plainly, quietly, and permit fate exactly one final, uncontested move",
+    "bgadvmax.final_counter.text": "You return at 16:51 with nine minutes to spare and the thousand-yard stare of a war veteran. The form is blue. The copies are stamped, restamped, and stamped once more for luck. The clerk studies the now-complete file with the specific expression of someone whose final line of defensive bureaucracy has, at long last, fallen.\n\nThere is, everyone in the room silently agrees, still exactly enough time left for one last thing to go catastrophically, gloriously wrong.",
+    "bgadvmax.final_counter.victory": "Formally declare that Documented Absurdity itself, at this quantity, now legally constitutes your supporting documentation",
+    "bgadvmax.final_counter.victory_fail": "You have not, this session, generated sufficient absurdity to establish proper legal standing for this particular gambit.",
+    "bgadvmax.final_event.text": "The stamp rises into the air, hovers with theatrical menace, and begins its descent. Somewhere unseen, the universe rolls dice for jurisdiction, ink supply, and lunch-break timing, all simultaneously.",
+    "bgadvmax.master.accept_monday": "Accept 'Monday' not as a date but as a philosophical stance on the nature of obligation itself",
+    "bgadvmax.master.call": "Ask, directly and perhaps naively, when precisely he intends to arrive",
+    "bgadvmax.master.friend": "Call the friend of the person you now know, invoking the full weight of the social graph you have been quietly building since 08:07",
+    "bgadvmax.master.friend_fail": "You do not yet know enough people who know people who know the majstor's cousin's godfather. This is not, the universe clarifies, a skills problem. It is an infrastructure problem, and infrastructure takes generations.",
+    "bgadvmax.master.original": "Gently mention the original quoted price and watch, in real time, as basic economics is reclassified as regional folklore",
+    "bgadvmax.master.price": "Accept the revised price without complaint, as the appropriate cost of witnessing a genuine miracle in your own bathroom",
+    "bgadvmax.master.text": "ACT III — THE IMMORTAL МАЙСТОР\n\nThe parcel contains the valve your майстор swore, on his mother's health, was impossible to source anywhere on the Balkan peninsula, possibly the continent. The leaking pipe has been patiently waiting for him since ‘Monday’ — a Monday with no attached calendar date, existing outside conventional chronology, referenced the way other cultures reference the apocalypse.\n\nYou call. He answers on the first ring with, ‘I was just about to call you,’ a sentence he has said, verifiably, every single time, for eleven years, possibly longer, possibly since before you owned this apartment.",
+    "bgadvmax.master.video": "Watch a nine-minute plumbing tutorial at 1.5x speed and become, for legal and emotional purposes, a temporarily licensed tradesman",
+    "bgadvmax.master.which_monday": "Ask, with rising existential dread, which Monday specifically he originally meant",
+    "bgadvmax.master_arrival.text": "The майстор arrives. Multiple neighbours step onto their balconies specifically to witness this, treating it as a minor but confirmed miracle. He examines the valve, the pipe, the wall, the building's foundation, your life choices, and your decision to purchase the valve yourself rather than through his cousin, who, he notes, would have gotten you a better one. The original quoted price is no longer available, on account of the problem now having been seen in person, with his own two eyes, which changes everything, spiritually and financially.",
+    "bgadvmax.master_diy.text": "The video insists you must ‘simply remove the old fitting.’ The fitting, for its part, has spent forty years quietly and thoroughly becoming both structurally load-bearing and, somehow, emotionally attached to the building, and to you personally.",
+    "bgadvmax.master_result.text": "He fixes the leak in eleven minutes flat, using your valve, two mismatched washers extracted from somewhere deep in his jacket pocket, and a tool that appears to have been hand-forged during the Yugoslav era for a completely different purpose. He informs you, with total serenity, that the entire original installation was wrong, has always been wrong, and will now, thanks to him, outlive both you and your grandchildren.",
+    "bgadvmax.master_time.text": "He confirms: Monday. You gently point out that today is, in fact, currently, actively Monday. He pauses — not out of confusion, you understand, but because you have introduced an entirely unwelcome and frankly rude level of temporal precision into what was previously a comfortable, ambient arrangement.",
+    "bgadvmax.municipality.ask": "Ask, with the calm of someone who has already lost, which document is in fact actually, truly required",
+    "bgadvmax.municipality.connection": "Call the person who knows the person, cashing in the single largest favor accumulated so far today",
+    "bgadvmax.municipality.connection_fail": "Your social graph, vast and well-earned though it is, does not yet extend into this particular department's jurisdiction.",
+    "bgadvmax.municipality.folder": "Slam the folder onto the counter before anyone in the building has the opportunity to invent an additional requirement",
+    "bgadvmax.municipality.folder_fail": "Your folder, while technically complete, lacks the minimum ceremonial density required to properly intimidate a state institution into swift action.",
+    "bgadvmax.municipality.text": "ACT V — THE FINAL DOCUMENT\n\nAt 15:42 you reach the municipality, slightly rakia-adjacent and radiating documented absurdity. Room 12 requires exactly one document to confirm a fact that is already, provably, visible in no fewer than three separate government databases. A handwritten note taped to Room 12's door states that Room 12 has permanently relocated to Room 7. A second, older, more confident note on Room 7's door states, with equal conviction, that Room 12 has not moved, has never moved, and will not be moving.",
+    "bgadvmax.parking.ask": "Ask whose chair it is, thereby triggering an oral inquiry that will outlast several governments",
+    "bgadvmax.parking.move": "Move the chair. It is, technically, still just a chair, a fact you will come to regret believing",
+    "bgadvmax.parking.respect": "Bow slightly and recognize the chair as a sovereign micro-state with full diplomatic immunity",
+    "bgadvmax.parking.text": "ACT I — THE CHAIR OF ABSOLUTE SOVEREIGNTY\n\nYou find the last open parking space in the entire municipality, possibly the entire Balkan peninsula. It is occupied by a single plastic chair, weathered to the exact shade of ancestral authority. The chair has no licence plate, no owner, no visible legal standing, and considerably more territorial jurisdiction than your car, the traffic police, and arguably the constitution.\n\nThree balconies are watching. A fourth balcony has gone inside specifically to get a better vantage point. Somewhere, a dog has begun narrating your indecision to the street.",
+    "bgadvmax.parking_council.apologize": "Return the chair to its exact original coordinates, plus a small bow, and formally apologize for the international incident",
+    "bgadvmax.parking_council.law": "Cite the specific municipal parking ordinance, chapter and verse, to the assembled balcony tribunal, who are unmoved because the ordinance is not oral",
+    "bgadvmax.parking_council.text": "Before the chair's plastic feet have finished sliding across the asphalt, a man materializes from a shop that has been visibly, definitively, triple-padlocked closed since March. He explains, with the calm of prophecy, that his cousin will be back in five minutes to reclaim the space. A woman leans from the second floor to announce that this cousin has been living in Germany since 2019, has a German wife, and possibly a German dog. Neither statement is treated as weakening the original claim. If anything, the claim has gained institutional weight.",
+    "bgadvmax.parking_result_bad.text": "You park successfully. Astonishingly, nobody blocks you in. This is, on reflection, much worse: the vehicles on either side leave exactly eleven centimetres of clearance at each bumper, a margin so precise it can only be read as both a threat and a compliment, executed by someone who did not need to look while doing it.",
+    "bgadvmax.parking_result_good.text": "The chair's custodian, moved by your restraint, personally escorts you to a legal parking space behind the pharmacy that does not appear on any map, official or otherwise. You have not parked faster. You have, however, acquired a person who knows a person, three new nicknames, and an open invitation to a wedding you cannot identify the couple for.",
+    "bgadvmax.parking_witnesses.text": "The balconies confer amongst themselves in a dialect reserved entirely for property disputes. Somewhere a grandmother produces a folding chair of her own, purely to observe the proceedings in comfort. Bulgarian oral law enters formal deliberation, quorum achieved by shouting distance.",
+    "bgadvmax.pen_shop.borrow": "Borrow a pen from the next person in the queue and, in the process, become temporary, honorary family",
+    "bgadvmax.pen_shop.buy": "Buy three blue pens on principle, so this exact humiliation can never happen to you again",
+    "bgadvmax.pen_shop.text": "The nearest shop sells pens, lottery tickets, artisanal coffee, phone cases of debatable provenance, small religious icons, batteries in four different voltages, and exactly one tomato, alone, on its own shelf, for reasons nobody working there can or will explain. The blue pens themselves are kept behind the counter, under lock, as though they are controlled municipal equipment, which, functionally, today, they are.",
+    "bgadvmax.prologue.local": "Call one person who knows one person who allegedly knows the mayor's cousin's dentist, before anything has gone wrong, purely as a hedge",
+    "bgadvmax.prologue.optimistic": "Begin with confidence. Surely five errands, one country, and one immortal tradesman fit inside a single Tuesday",
+    "bgadvmax.prologue.prepared": "Bring a folder of documents, a spare folder in case the first folder is deemed insufficiently thick, and the sacred blue pen",
+    "bgadvmax.prologue.text": "BULGARIAN ADVENTURES: EVERYTHING IS EXTREMELY FINE\n\nIt is 08:07. The sun has not yet decided how hot it intends to be, which is also true of the municipal government. Your objectives are modest: park the car, receive a parcel from a courier who exists in a superposition of locations, let a майстор who has outlived three regimes fix one pipe, visit a village with a surveillance apparatus that would make several intelligence agencies request a meeting, and submit one document before the municipality closes.\n\nThe municipality closes at 17:00, except when it closes at 14:30 for a wedding nobody official was invited to. You have brought optimism, a Thermos, and a single blue pen wrapped in a sock for protection. This was, historically speaking, not enough.",
+    "bgadvmax.var.absurdity": "Documented Absurdity (Notarized)",
+    "bgadvmax.var.connections": "People Who Know A Person Who Knows God",
+    "bgadvmax.var.documents": "Potentially Correct Documents",
+    "bgadvmax.var.patience": "Patience Remaining (Theoretical)",
+    "bgadvmax.var.rakia": "One Rakia (Undefined Unit)",
+    "bgadvmax.village.accept_source": "Accept the source as fully, independently peer-reviewed by a village council of one grandmother and her landline",
+    "bgadvmax.village.coffee": "Put the coffee on immediately and formally request full read-access to the intelligence network",
+    "bgadvmax.village.correct": "Attempt to issue a formal factual correction to the village's oral internet, a request logged and instantly ignored",
+    "bgadvmax.village.define": "Ask, bravely, exactly how large this particular ‘one’ is intended to be, a question no one has ever successfully answered",
+    "bgadvmax.village.deny": "Deny everything, calmly and completely, in a last, doomed attempt to preserve the concept of privacy as an institution",
+    "bgadvmax.village.intelligence": "Memorize only the operationally useful parts and quietly abandon your commitment to epistemology for the day",
+    "bgadvmax.village.one": "Accept precisely one rakia, understood in the traditional, non-Euclidean, load-bearing sense of the word ‘one’",
+    "bgadvmax.village.refuse": "Politely refuse, thereby triggering an immediate, informal, and deeply concerned village medical inquiry into your health",
+    "bgadvmax.village.source": "Ask, purely for research purposes, how she possibly knows any of this",
+    "bgadvmax.village.surrender": "Accept the Terms of Service, unread, as one does",
+    "bgadvmax.village.text": "ACT IV — THE VILLAGE API\n\nYou arrive at the village. Before you have finished closing the gate, a neighbour materializes to ask, in a single uninterrupted breath, whether the pipe is fixed, why the courier was so late, whether the man from the city is still upset about the chair incident, and whether it's true you're getting a dog.\n\nYou told absolutely none of this to anyone here. You have not, in fact, spoken to a single soul in this village since Easter.",
+    "bgadvmax.village_feast.text": "You attempt to stand and leave. Food materializes on the table with the speed and inevitability of a natural law. Refusing the food, you understand instinctively, would imply illness, personal hostility, or susceptibility to foreign influence. A bottle bearing no label whatsoever is placed, without comment, beside your plate. Your host refers to its contents as ‘one rakia,’ a unit of measurement with a well-documented lower bound and, as far as anyone has determined, no upper one."
   }
 }
