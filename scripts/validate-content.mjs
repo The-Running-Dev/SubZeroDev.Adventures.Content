@@ -62,6 +62,59 @@ console.log(`OK  manifest.json (${manifest.campaigns.length} campaigns)`);
 const publishedFiles = new Set(await readdir(publishDir));
 let failures = 0;
 
+/**
+ * Cross-file gate: two published campaigns may not define the same string key with
+ * different text.
+ *
+ * The per-file schema check above cannot see this -- each document is individually legal.
+ * A consumer, though, builds ONE string registry over every campaign it serves (the
+ * engine's `getStrings` has no per-campaign partition), so a divergent duplicate key is a
+ * `string_conflict` that fails the whole catalog build, not just the campaign that
+ * introduced it. In the trusted tier that is a fail-closed abort: it took the deployed
+ * Adventures API down at boot when `bulgarian-adventures-maximum-absurdity` shipped
+ * reusing `bulgarian-adventures`'s `bgadv.` prefix with rewritten text. Publishing is the
+ * last place the collision is cheap to catch, so it is caught here.
+ *
+ * Identical text under a shared key stays legal -- that merges cleanly, and it is how a
+ * genuinely shared string is meant to be expressed.
+ */
+const stringOwners = new Map();
+
+function collectStrings(file, campaign) {
+  const strings = campaign.strings;
+  if (!strings || typeof strings !== "object") return;
+  for (const [key, text] of Object.entries(strings)) {
+    const seen = stringOwners.get(key);
+    if (!seen) {
+      stringOwners.set(key, { file, text, conflicts: [] });
+      continue;
+    }
+    if (seen.text !== text) seen.conflicts.push(file);
+  }
+}
+
+function reportStringConflicts() {
+  let conflicted = 0;
+  for (const [key, seen] of stringOwners) {
+    if (seen.conflicts.length === 0) continue;
+    conflicted += 1;
+    console.error(
+      `FAIL string key "${key}" is defined with different text in ${seen.file} and ${seen.conflicts.join(", ")}`,
+    );
+  }
+  if (conflicted > 0) {
+    console.error(
+      `
+${conflicted} string key(s) collide across campaigns. Give each campaign its own key prefix.`,
+    );
+    return 1;
+  }
+  console.log(
+    `OK  no cross-campaign string-key conflicts (${stringOwners.size} keys)`,
+  );
+  return 0;
+}
+
 for (const entry of manifest.campaigns) {
   if (!publishedFiles.has(entry.file)) {
     console.error(
@@ -78,8 +131,11 @@ for (const entry of manifest.campaigns) {
     failures += 1;
     continue;
   }
+  collectStrings(entry.file, campaign);
   console.log(`OK  ${entry.file}`);
 }
+
+failures += reportStringConflicts();
 
 if (failures > 0) {
   console.error(`\n${failures} file(s) failed content-contract validation.`);
