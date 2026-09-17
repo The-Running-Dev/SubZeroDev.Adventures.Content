@@ -1,5 +1,8 @@
 # Project identity
 
+
+**Read [`AGENTS.shared.md`](C:/Users/Ben/.agent-kit/AGENTS.shared.md) completely before this file.** It holds the rules every repository using the kit shares.
+
 This repository publishes the campaign JSON that
 [`SubZeroDev.Adventures`](https://github.com/The-Running-Dev/SubZeroDev.Adventures) fetches at
 runtime. It exists to break Adventures' dependency on submoduling the entire engine to get
