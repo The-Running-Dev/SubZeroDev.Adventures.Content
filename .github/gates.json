@@ -1,0 +1,44 @@
+{
+  "gates": [
+    {
+      "name": "ci / setup (setup)",
+      "command": "npm run setup"
+    },
+    {
+      "name": "ci / install",
+      "command": "npm ci"
+    },
+    {
+      "name": "ci / format:check",
+      "command": "npm run format:check"
+    },
+    {
+      "name": "ci / lint",
+      "command": "npm run lint"
+    },
+    {
+      "name": "ci / typecheck",
+      "command": "npm run typecheck"
+    },
+    {
+      "name": "ci / test",
+      "command": "npm run test"
+    },
+    {
+      "name": "ci / export:content",
+      "command": "npm run export:content"
+    },
+    {
+      "name": "ci / check:clean",
+      "command": "npm run check:clean"
+    },
+    {
+      "name": "ci / validate:content",
+      "command": "npm run validate:content"
+    },
+    {
+      "name": "ci / build:site",
+      "command": "npm run build:site"
+    }
+  ]
+}
