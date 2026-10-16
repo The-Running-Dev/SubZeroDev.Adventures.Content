@@ -1,69 +1,26 @@
 name: Deploy
 
+# Exports the published content, checks it against the content contract and builds dist/ from
+# the manifest's own file list (build-site.mjs), then deploys dist/ to GitHub Pages from main.
+# Pull requests only build. Pages serves exactly dist/, never the repository root, which also
+# holds scripts/, site/ and the submodules.
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: github-pages
-  cancel-in-progress: false
+permissions: {}
 
 jobs:
-  deploy:
-    name: deploy
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Checkout (with submodules)
-        uses: actions/checkout@v5
-        with:
-          submodules: true
-
-      - name: Setup Node
-        uses: actions/setup-node@v5
-        with:
-          node-version: 24
-
-      - name: Build engine and contracts submodules
-        run: npm run setup
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Export the published content
-        run: npm run export:content
-
-      - name: Verify the published content is not stale
-        run: npm run check:clean
-
-      - name: Validate published content against the content contract
-        run: npm run validate:content
-
-      # Pages serves exactly dist/'s contents at the repo's Pages root. build-site.mjs
-      # assembles it from the manifest's own file list -- never by copying the repository
-      # root, which also holds scripts/, site/, and the submodules. Before this workflow,
-      # Pages was on the legacy main:/ build, which is how site/'s stray contents ended up
-      # accidentally publicly served (README.md's own Status section); building from an
-      # explicit list is what keeps that from regressing.
-      - name: Prepare the Pages artifact
-        run: npm run build:site
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v5
-        with:
-          path: dist
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5
+  pages:
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: The-Running-Dev/GitHub-ActionTemplates/.github/workflows/pages.yml@v0
+    with:
+      node-version: '24'
+      submodules: 'true'
+      setup: setup
+      scripts: export:content check:clean validate:content build:site
