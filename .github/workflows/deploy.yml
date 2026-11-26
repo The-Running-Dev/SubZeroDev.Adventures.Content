@@ -1,6 +1,7 @@
 name: Deploy
 
-# Exports the published content, checks it against the content contract and builds dist/ from
+# Runs the tests (which build the validated content registry, as Adventures does at fetch),
+# exports the published content, checks it against the content contract and builds dist/ from
 # the manifest's own file list (build-site.mjs), then deploys dist/ to GitHub Pages from main.
 # Pull requests only build. Pages serves exactly dist/, never the repository root, which also
 # holds scripts/, site/ and the submodules.
@@ -23,7 +24,7 @@ jobs:
       node-version: '24'
       submodules: 'true'
       setup: setup
-      scripts: export:content check:clean validate:content build:site
+      scripts: test export:content check:clean validate:content build:site
 
   # Tells the running Adventures server that new content is live, so it rebuilds its catalog
   # without a deploy (SubZeroDev.Adventures#21, its server/src/routes/content-refresh.ts). Runs
