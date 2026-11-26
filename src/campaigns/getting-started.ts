@@ -5,12 +5,13 @@
  * repo's `StoryGraphCampaignSource` authoring surface via `_shared/story-graph-helpers.ts`,
  * following `bulgarian-adventures.ts`'s precedent for direct authoring.
  *
- * The closing node's original text also claimed "a small unauthorized side quest" —
- * `getting-started-extension.json` in the source repo, grafted on at runtime by
- * Adventures' own `src/play/composition.ts` composition layer. That composition mechanism
- * has no counterpart in `@the-running-dev/game-engine/authoring` or `contracts/` here, so
- * it isn't ported; the line was dropped rather than shipped as a dangling reference to
- * content this campaign no longer contains.
+ * The side quest Adventures grafted onto `content_composition_intro` at runtime
+ * (`getting-started-extension.json`, through its own `src/play/composition.ts`) is now
+ * published content: the hidden module `getting-started-side-quest.ts`, attached here by a
+ * manifest `attachments` entry (engine 0.15.0). This file does not know it exists, which is
+ * what an attachment is for. The closing node's original "small unauthorized side quest"
+ * line stays dropped — restoring it would change this campaign's published digest for a
+ * joke the attached choice already makes.
  */
 import type {
   AchievementDefinitionSource,

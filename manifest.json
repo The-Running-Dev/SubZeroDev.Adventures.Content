@@ -72,7 +72,38 @@
       "id": "getting-started",
       "version": "1.0.0",
       "digest": "sha-256:e94cfb686cb540967edb91b46242f1606fe5e14d53d44305e5cfec76e56d09ec"
+    },
+    {
+      "file": "getting-started-side-quest.json",
+      "id": "getting-started-side-quest",
+      "version": "1.0.0",
+      "digest": "sha-256:e45b0380f6dadd7face4a7c254c85f0c9b909bdb545a98ef2505aba63422870c"
     }
   ],
-  "resolution": "sha-256:fbcebfed841a6476906a79e4db0989d0c5f8081f3f89725dceb57d027dc8958f"
+  "attachments": [
+    {
+      "kindId": "story-graph",
+      "hostCampaignId": "getting-started",
+      "include": {
+        "alias": "side_quest",
+        "ref": {
+          "id": "getting-started-side-quest",
+          "version": "1.0.0"
+        },
+        "binding": {
+          "exits": {
+            "back": "campaign_shapes"
+          }
+        }
+      },
+      "payload": {
+        "hostNodeId": "content_composition_intro",
+        "choice": {
+          "id": "what_was_that",
+          "labelKey": "gssq.attach.what_was_that"
+        }
+      }
+    }
+  ],
+  "resolution": "sha-256:7eeee1535f2cb986ce20a8ea45406e57d70f7b4e4cb451d9f9058b38cb9e74be"
 }
