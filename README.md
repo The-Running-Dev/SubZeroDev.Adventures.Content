@@ -36,6 +36,11 @@ In progress. Concretely real:
   segment. `scripts/build-site.mjs` assembles the deployed artifact from the manifest's own
   file list, so nothing outside the published content (`scripts/`, `site/`, the submodules) can
   be served by accident.
+- A deploy from `main` then calls the running Adventures server's `POST /api/content/refresh`
+  (the `refresh` job in `.github/workflows/deploy.yml`), which rebuilds its catalog from what
+  was just published. It needs the `CONTENT_REFRESH_SECRET` Actions secret, the same value the
+  Adventures deployment holds. Without it the job warns and skips. A non-2xx answer fails the
+  run, and a 502 means the server could not build the new content and kept the previous catalog.
 - A generated `index.html` lists the published campaigns at the Pages root, so browsing it in a
   browser renders instead of 404ing. It is a content index, not a playable site — fetching the
   manifest and campaign JSON directly remains the supported path.

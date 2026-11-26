@@ -24,3 +24,34 @@ jobs:
       submodules: 'true'
       setup: setup
       scripts: export:content check:clean validate:content build:site
+
+  # Tells the running Adventures server that new content is live, so it rebuilds its catalog
+  # without a deploy (SubZeroDev.Adventures#21, its server/src/routes/content-refresh.ts). Runs
+  # only when Pages actually deployed: `page-url` is empty for a pull request and for an older
+  # run the branch-tip gate skipped. A separate job because the shared workflow's post-deploy
+  # scripts get no secrets.
+  refresh:
+    name: Refresh Adventures catalog
+    needs: pages
+    if: needs.pages.outputs.page-url != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions: {}
+    steps:
+      - name: Refresh
+        env:
+          CONTENT_REFRESH_SECRET: ${{ secrets.CONTENT_REFRESH_SECRET }}
+          REFRESH_URL: https://adventures-api.subzerodev.com/api/content/refresh
+        # No secret is a warning, not a failure: content is published either way, and an admin's
+        # Sync still refreshes. Any non-2xx is a failure. 503 means the server has no secret
+        # configured, 401 that the two sides disagree, 502 that the server could not build what
+        # was just published and is still serving the previous catalog.
+        run: |
+          if [ -z "$CONTENT_REFRESH_SECRET" ]; then
+            echo "::warning::CONTENT_REFRESH_SECRET is not set; the Adventures catalog was not refreshed."
+            exit 0
+          fi
+          curl --fail-with-body --silent --show-error --max-time 120 \
+            --request POST \
+            --header "Authorization: Bearer $CONTENT_REFRESH_SECRET" \
+            "$REFRESH_URL"
