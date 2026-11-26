@@ -65,8 +65,14 @@ import {
   gettingStartedCatalog,
 } from "../src/campaigns/getting-started.js";
 import {
+  buildGettingStartedSideQuestCampaign,
+  gettingStartedSideQuestAttachment,
+  gettingStartedSideQuestCatalog,
+} from "../src/campaigns/getting-started-side-quest.js";
+import {
   toPortable,
   type PortableCampaign,
+  type PortableCampaignAttachment,
   type PortableManifestEntry,
 } from "@the-running-dev/game-engine/authoring";
 import {
@@ -142,6 +148,16 @@ const entries: readonly Entry[] = [
   },
   { build: buildSakiQuestCampaign, catalog: sakiQuestCatalog },
   { build: buildGettingStartedCampaign, catalog: gettingStartedCatalog },
+  {
+    build: buildGettingStartedSideQuestCampaign,
+    catalog: gettingStartedSideQuestCatalog,
+  },
+];
+
+/** Published on the manifest, in order; a consumer passes them to
+ *  `buildValidatedContentRegistry` unchanged, and the manifest's `resolution` covers them. */
+const attachments: readonly PortableCampaignAttachment[] = [
+  gettingStartedSideQuestAttachment,
 ];
 
 /** Builds every entry first, writes nothing until every build has succeeded — the abort
@@ -233,7 +249,8 @@ async function main(): Promise<void> {
   const manifest = {
     formatVersion: 2 as const,
     campaigns: manifestEntries,
-    resolution: digestManifestResolution(manifestEntries),
+    attachments,
+    resolution: digestManifestResolution(manifestEntries, attachments),
   };
   await writeFile(
     manifestPath,
